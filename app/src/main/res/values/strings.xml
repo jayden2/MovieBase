@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MovieBase</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="movie_description">Movie Description</string>
+    <string name="movie_year">Movie Year</string>
+    <string name="movie_rating">Movie Rating</string>
+    <string name="movie_title">Movie Title</string>
+</resources>
