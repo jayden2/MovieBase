@@ -21,5 +21,6 @@
     <string name="movie_score">10</string>
     <string name="movie_title">Movie Title</string>
     <string name="search_hint">Enter Movie Name</string>
+    <string name="add_review">Add Review</string>
 
 </resources>
