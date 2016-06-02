@@ -7,16 +7,6 @@
     android:paddingTop="10dp"
     android:paddingBottom="10dp">
 
-    <ImageView
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:id="@+id/listItemMovieImage"
-        android:background="@drawable/preview_image"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="10dp" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +16,6 @@
         android:textColor="@color/titleColor"
         android:ellipsize="end"
         android:singleLine="true"
-        android:layout_toRightOf="@+id/listItemMovieImage"
         android:layout_marginStart="15dp"/>
 
     <TextView
@@ -56,8 +45,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listItemMovieDescription"
-        android:text="@string/movie_description"
+        android:id="@+id/listItemMovieReview"
+        android:text="@string/movie_review"
         android:textColor="@color/descriptionColor"
         android:ellipsize="end"
         android:singleLine="true"
@@ -65,9 +54,24 @@
         android:layout_alignStart="@+id/listItemMovieTitle"
         android:layout_marginTop="5dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listItemMovieReviewScore"
+        android:text="@string/movie_score"
+        android:textColor="@color/secondaryColor"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_toLeftOf="@+id/listItemArrow"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp" />
+
     <ImageView
         android:layout_width="15dp"
         android:layout_height="15dp"
+        android:id="@+id/listItemArrow"
         android:layout_centerVertical="true"
         android:background="@drawable/arrow"
         android:layout_alignParentEnd="true" />

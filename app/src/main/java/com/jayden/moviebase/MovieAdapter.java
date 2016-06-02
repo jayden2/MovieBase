@@ -29,12 +29,14 @@ public class MovieAdapter extends ArrayAdapter<MovieTitle> {
         TextView movieTitle = (TextView) convertView.findViewById(R.id.listItemMovieTitle);
         TextView movieRating = (TextView) convertView.findViewById(R.id.listItemMovieRating);
         TextView movieYear = (TextView) convertView.findViewById(R.id.listItemMovieYear);
-        TextView movieDescription = (TextView) convertView.findViewById(R.id.listItemMovieDescription);
+        TextView movieReview = (TextView) convertView.findViewById(R.id.listItemMovieReview);
+        TextView movieScore = (TextView) convertView.findViewById(R.id.listItemMovieReviewScore);
 
         movieTitle.setText(movie.getTitle());
         movieRating.setText(movie.getRating());
         movieYear.setText(movie.getYear());
-        movieDescription.setText(movie.getPlot());
+        movieReview.setText(movie.getReview());
+        movieScore.setText(Long.toString(movie.getScore()));
 
         return convertView;
     }

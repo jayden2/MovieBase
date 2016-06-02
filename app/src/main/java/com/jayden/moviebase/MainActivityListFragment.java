@@ -21,18 +21,18 @@ public class MainActivityListFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
 
         movies = new ArrayList<MovieTitle>();
-        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah"));
-        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah"));
-        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah"));
-        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah"));
-        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah"));
-        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah"));
-        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah"));
-        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah"));
-        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah"));
-        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah"));
-        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah"));
-        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah"));
+        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah", 6));
+        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah", 6));
+        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah", 6));
+        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah", 6));
+        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah", 6));
+        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah", 6));
+        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah", 6));
+        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah", 6));
+        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah", 6));
+        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah", 6));
+        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah", 6));
+        movies.add(new MovieTitle("Bad Boys", "movie", "MA", "Action", "blah blah blah", 6));
 
 
         movieAdapter = new MovieAdapter(getActivity(), movies);

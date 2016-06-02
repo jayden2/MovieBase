@@ -4,20 +4,21 @@ package com.jayden.moviebase;
  * Created by Jayden on 21-Apr-16.
  */
 public class MovieTitle {
-    private String title, type, rating, year, genre, plot;
-    private long movieId, runtime;
+    private String title, type, rating, year, genre, plot, review;
+    private long movieId, runtime, score;
 
-    public MovieTitle(String title, String type, String rating, String year, String plot) {
+    public MovieTitle(String title, String type, String rating, String year, String review, long score) {
 
         this.title = title;
         this.type = type;
         this.rating = rating;
         this.year = year;
-        this.plot = plot;
+        this.review = review;
+        this.score = score;
     }
 
     public MovieTitle(String title, String type, String rating, String genre, String plot,
-                      long movieId, String year, long runtime) {
+                      long movieId, String year, long runtime, String review, long score) {
 
         this.title = title;
         this.type = type;
@@ -27,6 +28,8 @@ public class MovieTitle {
         this.movieId = movieId;
         this.year = year;
         this.runtime = runtime;
+        this.score = score;
+        this.review = review;
     }
 
     //getters
@@ -45,4 +48,8 @@ public class MovieTitle {
     public String getYear() { return year; }
 
     public long getRuntime() { return runtime; }
+
+    public long getScore() { return score; }
+
+    public String getReview() { return review; }
 }

@@ -1,5 +1,11 @@
 <resources>
-    <string name="app_name">◆ MovieBase ◆</string>
+    <string name="app_name">MovieBase</string>
+
+    <!-- Title Fragments -->
+    <string name="title_feed">MovieBase Review Feed</string>
+    <string name="title_login">MovieBase Login</string>
+    <string name="title_profile">My Profile</string>
+    <string name="title_add_review">Add Review</string>
     <string name="action_settings">Settings</string>
 
     <!-- Search Bar Fragment -->
@@ -11,6 +17,8 @@
     <string name="movie_description">Movie Description</string>
     <string name="movie_year">Movie Year</string>
     <string name="movie_rating">Movie Rating</string>
+    <string name="movie_review">Movie Review</string>
+    <string name="movie_score">10</string>
     <string name="movie_title">Movie Title</string>
     <string name="search_hint">Enter Movie Name</string>
 
