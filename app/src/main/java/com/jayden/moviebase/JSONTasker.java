@@ -1,7 +1,6 @@
 package com.jayden.moviebase;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,16 +13,14 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Jayden on 03-Jun-16.
  */
-public class JSONTasker extends AsyncTask<String, String, String> {
+public class JSONTasker extends AsyncTask<String, String, ArrayList<MovieTitle>> {
 
     @Override
-    protected String doInBackground(String... params) {
+    protected ArrayList<MovieTitle> doInBackground(String... params) {
 
         HttpURLConnection connection = null;
         BufferedReader reader = null;
@@ -49,20 +46,21 @@ public class JSONTasker extends AsyncTask<String, String, String> {
 
             //sort received JSON data
             JSONArray JSONdata = new JSONArray(result);
-            movies = new ArrayList<MovieTitle>();
+            ArrayList<MovieTitle> movies = new ArrayList<MovieTitle>();
 
             for (int i = 0; i < JSONdata.length(); i++) {
                 JSONObject movie = JSONdata.getJSONObject(i);
                 movies.add(new MovieTitle(
-                        String.valueOf(i),
+                        movie.getLong("id"),
                         movie.getString("title"),
                         movie.getString("rating"),
-                        movie.getString("score"),
+                        movie.getLong("score"),
                         movie.getString("description"),
+                        "PG",
                         movie.getString("review"),
                         movie.getString("cover"),
-                        movie.getString("year"),
-                        movie.getString("user_id"),
+                        movie.getLong("year"),
+                        movie.getLong("user_id"),
                         movie.getString("updated_at"),
                         movie.getString("created_at")));
             }
@@ -93,7 +91,7 @@ public class JSONTasker extends AsyncTask<String, String, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(ArrayList<MovieTitle> result) {
         super.onPostExecute(result);
     }
 }
