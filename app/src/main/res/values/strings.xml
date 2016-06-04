@@ -23,5 +23,7 @@
     <string name="movie_score">10</string>
     <string name="movie_title">Movie Title</string>
     <string name="search_hint">Enter Movie Name</string>
+    <string name="movie_genre">Movie Genre</string>
+    <string name="movie_cover_image">movie cover image</string>
 
 </resources>
