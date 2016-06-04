@@ -31,30 +31,33 @@ public class MovieAdapter extends ArrayAdapter<MovieTitle> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.d("VIEW RUNNING?!","VIEW RUNNING?!");
         //get the data item for this position
         MovieTitle movie = getItem(position);
 
         //create view holder
         ViewHolder viewHolder;
 
+        //check if an existing view is being used otherwise inflate a new view from the custom list_row
         if (convertView == null) {
 
+            //if there's no view being used create one, and create
+            //a view holder along with it to save the view reference to it
             viewHolder = new ViewHolder();
-            Log.d("IS THIS NULL????","");
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_row, parent, false);
 
+            //get references of views to populate with specific note row data
             viewHolder.movieTitle = (TextView) convertView.findViewById(R.id.listItemMovieTitle);
             viewHolder.movieRating = (TextView) convertView.findViewById(R.id.listItemMovieRating);
             viewHolder.movieYear = (TextView) convertView.findViewById(R.id.listItemMovieYear);
             viewHolder.movieReview = (TextView) convertView.findViewById(R.id.listItemMovieReview);
             viewHolder.movieScore = (TextView) convertView.findViewById(R.id.listItemMovieReviewScore);
 
+            //get tag to store the view holder that holds the reference to the widgets
             convertView.setTag(viewHolder);
 
         } else {
-            Log.d("RUN THIS!!!????","");
-            //Grab widgets from view holder
+
+            //get widgets from view holder
             viewHolder = (ViewHolder) convertView.getTag();
         }
 

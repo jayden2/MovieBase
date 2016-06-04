@@ -104,7 +104,7 @@ public class JSONTasker extends AsyncTask<String, String, ArrayList<MovieTitle>>
     }
     @Override
     protected void onPostExecute(ArrayList<MovieTitle> result) {
-        //get all movies finished
+        //set the result of the JSON call and sorting into an object array list for MainActivityListFragment to call
         movieAsyncListener.getMoviesFinished(result);
 
     }

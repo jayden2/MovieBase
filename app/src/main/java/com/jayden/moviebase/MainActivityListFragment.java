@@ -34,6 +34,7 @@ public class MainActivityListFragment extends ListFragment implements MoviesGetH
         super.onListItemClick(l, v, position, id);
     }
 
+    //once the async JSON movie list get task is done, create and set the Movie adapter
     @Override
     public void getMoviesFinished(ArrayList<MovieTitle> movieList) {
         movieAdapter = new MovieAdapter(getActivity(), movieList);

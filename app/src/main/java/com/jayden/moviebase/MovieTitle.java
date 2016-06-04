@@ -11,22 +11,6 @@ public class MovieTitle {
 
     }
 
-    public MovieTitle(long movieId, String title, String rating, long score, String description, String genre,
-                      String review, String cover, long year, long userId, String updatedAt, String createdAt) {
-
-        this.title = title;
-        this.rating = rating;
-        this.description = description;
-        this.movieId = movieId;
-        this.year = year;
-        this.cover = cover;
-        this.userId = userId;
-        this.updatedAt = updatedAt;
-        this.createdAt = createdAt;
-        this.score = score;
-        this.review = review;
-    }
-
     //getters
     public String getTitle() { return title; }
 
