@@ -66,8 +66,7 @@
         android:textStyle="bold"
         android:layout_toLeftOf="@+id/listItemArrow"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="30dp"
-        android:background="@color/red"/>
+        android:layout_marginRight="30dp" />
 
     <ImageView
         android:layout_width="15dp"

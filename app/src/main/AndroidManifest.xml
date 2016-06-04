@@ -20,6 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ReviewDetailActivity"
+            android:label="@string/view_fragment_title"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>
