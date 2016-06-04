@@ -1,6 +1,8 @@
 package com.jayden.moviebase;
 
 import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.ArrayAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,11 +15,16 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-
 /**
  * Created by Jayden on 03-Jun-16.
  */
 public class JSONTasker extends AsyncTask<String, String, ArrayList<MovieTitle>> {
+
+    private MoviesGetHolder movieAsyncListener;
+
+    public JSONTasker(MoviesGetHolder movieAsyncListener){
+        this.movieAsyncListener = movieAsyncListener;
+    }
 
     @Override
     protected ArrayList<MovieTitle> doInBackground(String... params) {
@@ -45,24 +52,30 @@ public class JSONTasker extends AsyncTask<String, String, ArrayList<MovieTitle>>
             }
 
             //sort received JSON data
-            JSONArray JSONdata = new JSONArray(result);
-            ArrayList<MovieTitle> movies = new ArrayList<MovieTitle>();
+            JSONArray JSONdata = new JSONArray(result.toString());
+
+            ArrayList<MovieTitle> movies = new ArrayList<>();
 
             for (int i = 0; i < JSONdata.length(); i++) {
-                JSONObject movie = JSONdata.getJSONObject(i);
-                movies.add(new MovieTitle(
-                        movie.getLong("id"),
-                        movie.getString("title"),
-                        movie.getString("rating"),
-                        movie.getLong("score"),
-                        movie.getString("description"),
-                        "PG",
-                        movie.getString("review"),
-                        movie.getString("cover"),
-                        movie.getLong("year"),
-                        movie.getLong("user_id"),
-                        movie.getString("updated_at"),
-                        movie.getString("created_at")));
+                //set all the values to the movieTitle object
+                JSONObject movieData = JSONdata.getJSONObject(i);
+                MovieTitle movie = new MovieTitle();
+
+                movie.setMovieId(movieData.getLong("id"));
+                movie.setTitle(movieData.getString("title"));
+                movie.setRating(movieData.getString("rating"));
+                movie.setScore(movieData.getLong("score"));
+                movie.setDescription(movieData.getString("description"));
+                //TO DO genre set
+                movie.setReview(movieData.getString("review"));
+                movie.setCover(movieData.getString("cover"));
+                movie.setYear(movieData.getLong("year"));
+                movie.setUserId(movieData.getLong("user_id"));
+                movie.setUpdatedAt(movieData.getString("updated_at"));
+                movie.setCreatedAt(movieData.getString("created_at"));
+
+                //adding object to array list
+                movies.add(movie);
             }
 
             return movies;
@@ -89,9 +102,10 @@ public class JSONTasker extends AsyncTask<String, String, ArrayList<MovieTitle>>
         //if errors return null
         return null;
     }
-
     @Override
     protected void onPostExecute(ArrayList<MovieTitle> result) {
-        super.onPostExecute(result);
+        //get all movies finished
+        movieAsyncListener.getMoviesFinished(result);
+
     }
 }

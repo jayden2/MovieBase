@@ -4,16 +4,11 @@ package com.jayden.moviebase;
  * Created by Jayden on 21-Apr-16.
  */
 public class MovieTitle {
-    private String title, rating, genre, review, cover, description, updatedAt, createdAt;
+    private String title, rating, review, cover, description, updatedAt, createdAt;
     private long movieId, year, score, userId;
 
-    public MovieTitle(String title, String rating, long year, String review, long score) {
+    public MovieTitle() {
 
-        this.title = title;
-        this.rating = rating;
-        this.year = year;
-        this.review = review;
-        this.score = score;
     }
 
     public MovieTitle(long movieId, String title, String rating, long score, String description, String genre,
@@ -21,7 +16,6 @@ public class MovieTitle {
 
         this.title = title;
         this.rating = rating;
-        this.genre = genre;
         this.description = description;
         this.movieId = movieId;
         this.year = year;
@@ -38,8 +32,6 @@ public class MovieTitle {
 
     public String getRating() { return rating; }
 
-    public String getGenre() { return genre; }
-
     public long getMovieId() { return movieId;  }
 
     public String getDescription() { return description; }
@@ -52,9 +44,32 @@ public class MovieTitle {
 
     public long getUserId() { return userId; }
 
-    public Long getYear() { return year; }
+    public long getYear() { return year; }
 
     public long getScore() { return score; }
 
     public String getReview() { return review; }
+
+    //setters
+    public void setTitle(String title) { this.title = title; }
+
+    public void setRating(String rating) { this.rating = rating; }
+
+    public void setMovieId(long movieId) { this.movieId = movieId;  }
+
+    public void setDescription(String description) { this.description = description; }
+
+    public void setCover(String cover) { this.cover = cover; }
+
+    public void setUpdatedAt(String updatedAt) { this.updatedAt = updatedAt; }
+
+    public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
+
+    public void setUserId(long userId) { this.userId = userId; }
+
+    public void setYear(long year) { this.year = year; }
+
+    public void setScore(long score) { this.score = score; }
+
+    public void setReview(String review) { this.review = review; }
 }

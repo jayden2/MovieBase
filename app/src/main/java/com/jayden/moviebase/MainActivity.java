@@ -3,7 +3,6 @@ package com.jayden.moviebase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -34,6 +33,14 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+
+        if (id == R.id.action_review) {
+            return true;
+        }
+
+        if (id == R.id.action_refresh) {
             return true;
         }
 

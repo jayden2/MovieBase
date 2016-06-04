@@ -3,9 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.jayden.moviebase.MainActivity">
     <item
-        android:id="@+id/action_add_review"
+        android:id="@+id/action_review"
         android:orderInCategory="100"
-        android:title="@string/add_review"
+        android:title="@string/action_review"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_refresh"
+        android:orderInCategory="100"
+        android:title="@string/action_refresh"
         app:showAsAction="never" />
 
     <item
