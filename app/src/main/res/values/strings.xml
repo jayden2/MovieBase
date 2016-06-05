@@ -28,5 +28,6 @@
     <string name="edit_fragment_title">Edit Fragment Title</string>
     <string name="view_fragment_title">View Fragment Title</string>
     <string name="image_cover">image cover</string>
+    <string name="arrow_icon">arrow icon</string>
 
 </resources>

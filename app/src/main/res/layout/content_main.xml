@@ -10,15 +10,6 @@
     tools:context="com.jayden.moviebase.MainActivity"
     tools:showIn="@layout/activity_main"
     android:orientation="vertical">
-    <!-- for add review
-    <fragment
-        android:id="@+id/mainActivitySearch"
-        android:name="com.jayden.moviebase.MainActivitySearchFragment"
-        android:layout_weight="5"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        tools:layout="@layout/search_section" />
-        -->
 
     <fragment
         android:id="@+id/mainActivityList"

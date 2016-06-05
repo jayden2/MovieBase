@@ -46,11 +46,12 @@ public class ReviewViewFragment extends Fragment {
         //display image
         ImageLoader.getInstance().displayImage(intent.getExtras()
                 .getString(MainActivity.MOVIE_COVER_EXTRA), cover, new ImageLoadingListener() {
+            //progress bar visible on start load
             @Override
             public void onLoadingStarted(String imageUri, View view) {
                 progressBar.setVisibility(View.VISIBLE);
             }
-
+            //if fails, complete or canceled display invisible
             @Override
             public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                 progressBar.setVisibility(View.GONE);

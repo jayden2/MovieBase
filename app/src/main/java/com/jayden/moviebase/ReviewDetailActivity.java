@@ -12,6 +12,7 @@ import android.os.Bundle;
 public class ReviewDetailActivity extends AppCompatActivity {
 
     public static final String NEW_REVIEW_EXTRA = "New Review";
+    public static final String NEW_REVIEW_CREATE_EXTRA = "create Review";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,16 @@ public class ReviewDetailActivity extends AppCompatActivity {
 
         //select either edit, create or view fragment to ReviewDetailActivity
         switch (fragmentToLaunch) {
+            case SEARCH:
+                MovieSearchAddActivity movieSearchAddActivity = new MovieSearchAddActivity();
+                setTitle("Search movie to review");
+
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(NEW_REVIEW_EXTRA, true);
+                movieSearchAddActivity.setArguments(bundle);
+
+                fragmentTransaction.add(R.id.review_container, movieSearchAddActivity, "NOTE_SEARCH_CREATE_FRAGMENT");
+                break;
             case CREATE:
                 break;
             case EDIT:

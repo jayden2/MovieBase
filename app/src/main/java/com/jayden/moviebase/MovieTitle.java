@@ -4,7 +4,7 @@ package com.jayden.moviebase;
  * Created by Jayden on 21-Apr-16.
  */
 public class MovieTitle {
-    private String title, rating, review, cover, description, genre, updatedAt, createdAt;
+    private String title, rating, review, cover, description, genre, updatedAt, createdAt, imdb;
     private long movieId, year, score, userId;
 
     public MovieTitle() {
@@ -36,6 +36,8 @@ public class MovieTitle {
 
     public String getReview() { return review; }
 
+    public String getImdb() { return imdb; }
+
     //setters
     public void setTitle(String title) { this.title = title; }
 
@@ -60,4 +62,6 @@ public class MovieTitle {
     public void setScore(long score) { this.score = score; }
 
     public void setReview(String review) { this.review = review; }
+
+    public void setImdb(String imdb) { this.imdb = imdb; }
 }

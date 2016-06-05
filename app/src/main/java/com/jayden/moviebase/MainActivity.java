@@ -1,5 +1,6 @@
 package com.jayden.moviebase;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,9 +21,10 @@ public class MainActivity extends AppCompatActivity {
     public static final String MOVIE_YEAR_EXTRA = "com.jayden.moviebase.Year";
     public static final String MOVIE_RATING_EXTRA = "com.jayden.moviebase.Rating";
     public static final String MOVIE_COVER_EXTRA = "com.jayden.moviebase.Cover";
+    public static final String MOVIE_IMDB_EXTRA = "com.jayden.moviebase.Imdb";
     public static final String MOVIE_FRAGMENT_TO_LOAD_EXTRA = "com.jayden.moviebase.Fragment_To_Load";
 
-    public enum ReviewFragmentToLaunch { VIEW, EDIT, CREATE }
+    public enum ReviewFragmentToLaunch { VIEW, EDIT, CREATE, SEARCH }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_review) {
+            Intent intent = new Intent(this, ReviewDetailActivity.class);
+            intent.putExtra(MainActivity.MOVIE_FRAGMENT_TO_LOAD_EXTRA, ReviewFragmentToLaunch.SEARCH);
+            startActivity(intent);
             return true;
         }
 
