@@ -10,7 +10,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 
-public class MainActivityListFragment extends ListFragment implements MoviesGetHolder {
+public class MainActivityListFragment extends ListFragment implements MoviesSetHolder {
 
     private static MovieAdapter movieAdapter;
 

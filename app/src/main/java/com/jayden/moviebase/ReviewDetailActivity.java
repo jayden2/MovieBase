@@ -38,14 +38,14 @@ public class ReviewDetailActivity extends AppCompatActivity {
         //select either edit, create or view fragment to ReviewDetailActivity
         switch (fragmentToLaunch) {
             case SEARCH:
-                MovieSearchAddActivity movieSearchAddActivity = new MovieSearchAddActivity();
+                SearchAddFragment searchAddFragment = new SearchAddFragment();
                 setTitle("Search movie to review");
 
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(NEW_REVIEW_EXTRA, true);
-                movieSearchAddActivity.setArguments(bundle);
+                searchAddFragment.setArguments(bundle);
 
-                fragmentTransaction.add(R.id.review_container, movieSearchAddActivity, "NOTE_SEARCH_CREATE_FRAGMENT");
+                fragmentTransaction.add(R.id.review_container, searchAddFragment, "NOTE_SEARCH_CREATE_FRAGMENT");
                 break;
             case CREATE:
                 break;

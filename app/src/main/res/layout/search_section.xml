@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/searchText"
         android:hint="@string/search_hint"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/titleColor"
         android:layout_alignTop="@+id/searchButton"
         android:layout_alignParentStart="true"
         android:layout_marginStart="25dp"

@@ -1,8 +1,6 @@
 package com.jayden.moviebase;
 
 import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.ArrayAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,9 +18,9 @@ import java.util.ArrayList;
  */
 public class JSONTasker extends AsyncTask<String, String, ArrayList<MovieTitle>> {
 
-    private MoviesGetHolder movieAsyncListener;
+    private MoviesSetHolder movieAsyncListener;
 
-    public JSONTasker(MoviesGetHolder movieAsyncListener){
+    public JSONTasker(MoviesSetHolder movieAsyncListener){
         this.movieAsyncListener = movieAsyncListener;
     }
 

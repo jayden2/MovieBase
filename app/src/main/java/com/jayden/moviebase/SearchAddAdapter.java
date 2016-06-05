@@ -12,14 +12,14 @@ import java.util.List;
 /**
  * Created by Jayden on 06-Jun-16.
  */
-public class ReviewSearchAddAdapter extends ArrayAdapter<MovieTitle> {
+public class SearchAddAdapter extends ArrayAdapter<MovieTitle> {
 
     public static class ViewHolder {
         TextView movieTitle;
         TextView movieYear;
     }
 
-    public ReviewSearchAddAdapter(Context context, List<MovieTitle> movies) {
+    public SearchAddAdapter(Context context, List<MovieTitle> movies) {
         super(context, 0, movies);
     }
 

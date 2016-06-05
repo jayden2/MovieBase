@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainActivitySearch"
-        android:name="com.jayden.moviebase.MainActivitySearchFragment"
+        android:name="com.jayden.moviebase.SearchFragment"
         android:layout_weight="5"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -15,7 +15,7 @@
 
     <fragment
         android:id="@+id/mainActivityList"
-        android:name="com.jayden.moviebase.MainActivityListFragment"
+        android:name="com.jayden.moviebase.SearchAddListFragment"
         android:layout_weight="95"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
