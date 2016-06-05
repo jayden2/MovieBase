@@ -3,6 +3,8 @@
     package="com.jayden.moviebase">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- permission for caching images on SD card -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"

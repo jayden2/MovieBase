@@ -66,7 +66,7 @@ public class JSONTasker extends AsyncTask<String, String, ArrayList<MovieTitle>>
                 movie.setRating(movieData.getString("rating"));
                 movie.setScore(movieData.getLong("score"));
                 movie.setDescription(movieData.getString("description"));
-                //TO DO genre set
+                movie.setGenre(movieData.getString("genre"));
                 movie.setReview(movieData.getString("review"));
                 movie.setCover(movieData.getString("cover"));
                 movie.setYear(movieData.getLong("year"));

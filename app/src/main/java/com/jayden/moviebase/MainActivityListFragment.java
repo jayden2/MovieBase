@@ -2,15 +2,9 @@ package com.jayden.moviebase;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.view.ContextMenu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -61,7 +55,11 @@ public class MainActivityListFragment extends ListFragment implements MoviesGetH
         //set movie information to main activity extra's to give to reviewDetailActivity
         intent.putExtra(MainActivity.MOVIE_TITLE_EXTRA, movie.getTitle());
         intent.putExtra(MainActivity.MOVIE_REVIEW_EXTRA, movie.getReview());
-        //TODO add more
+        intent.putExtra(MainActivity.MOVIE_GENRE_EXTRA, movie.getGenre());
+        intent.putExtra(MainActivity.MOVIE_RATING_EXTRA, movie.getRating());
+        intent.putExtra(MainActivity.MOVIE_SCORE_EXTRA, Long.toString(movie.getScore()));
+        intent.putExtra(MainActivity.MOVIE_YEAR_EXTRA, Long.toString(movie.getYear()));
+        intent.putExtra(MainActivity.MOVIE_COVER_EXTRA, movie.getCover());
 
         switch(view) {
             case EDIT:
