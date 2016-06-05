@@ -1,15 +1,19 @@
 package com.jayden.moviebase;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 /**
  * Created by Jayden on 05-Jun-16.
@@ -35,12 +39,33 @@ public class ReviewViewFragment extends Fragment {
         TextView rating = (TextView) fragmentLayout.findViewById(R.id.viewMovieRating);
         TextView score = (TextView) fragmentLayout.findViewById(R.id.viewMovieScore);
         ImageView cover = (ImageView) fragmentLayout.findViewById(R.id.viewReviewCover);
+        final ProgressBar progressBar = (ProgressBar) fragmentLayout.findViewById(R.id.progressBar);
 
         Intent intent = getActivity().getIntent();
 
         //display image
         ImageLoader.getInstance().displayImage(intent.getExtras()
-                .getString(MainActivity.MOVIE_COVER_EXTRA), cover);
+                .getString(MainActivity.MOVIE_COVER_EXTRA), cover, new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String imageUri, View view) {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onLoadingCancelled(String imageUri, View view) {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
 
         //set review view display template
         title.setText(intent.getExtras().getString(MainActivity.MOVIE_TITLE_EXTRA));
