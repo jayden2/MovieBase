@@ -45,7 +45,7 @@ public class ReviewDetailActivity extends AppCompatActivity {
                 bundle.putBoolean(NEW_REVIEW_EXTRA, true);
                 searchAddFragment.setArguments(bundle);
 
-                fragmentTransaction.add(R.id.review_container, searchAddFragment, "NOTE_SEARCH_CREATE_FRAGMENT");
+                fragmentTransaction.add(R.id.review_container, searchAddFragment, "REVIEW_SEARCH_CREATE_FRAGMENT");
                 break;
             case CREATE:
                 break;
