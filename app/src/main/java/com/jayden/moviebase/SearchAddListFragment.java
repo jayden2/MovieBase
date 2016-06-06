@@ -16,10 +16,26 @@ import java.util.ArrayList;
 public class SearchAddListFragment extends ListFragment implements SearchSetHolder {
 
     private static SearchAddAdapter searchAddAdapter;
+    private ArrayList<MovieTitle> searchArray;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        ////////////////////////
+
+        MovieTitle movie = new MovieTitle();
+
+        movie.setTitle("Title");
+        movie.setYear(1993);
+
+        //adding object to array list
+        searchArray.add(movie);
+
+        searchAddAdapter = new SearchAddAdapter(getActivity(), searchArray);
+        setListAdapter(searchAddAdapter);
+
+        ////////////////////
 
         //set divider between fragments color and height
         getListView().setDivider(ContextCompat.getDrawable(getActivity(), android.R.color.darker_gray));
@@ -43,9 +59,9 @@ public class SearchAddListFragment extends ListFragment implements SearchSetHold
     public void getSearchFinished(ArrayList<MovieTitle> searchList) {
         Log.d("Search Finished!!!", "");
         Log.d("", String.valueOf(searchList));
-        searchAddAdapter = new SearchAddAdapter(getActivity().getParent(), searchList);
-        setListAdapter(searchAddAdapter);
-        searchAddAdapter.notifyDataSetChanged();
+        searchAddAdapter = new SearchAddAdapter(getActivity().getApplicationContext(), searchList);
+        //setListAdapter(searchAddAdapter);
+        //searchAddAdapter.notifyDataSetChanged();
     }
 
     //TODO LAUNCH DETAIL ADD REVIEW
