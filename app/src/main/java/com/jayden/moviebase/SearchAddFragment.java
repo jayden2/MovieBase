@@ -14,11 +14,5 @@ public class SearchAddFragment extends Fragment {
     public SearchAddFragment() {
         //Empty Constructor
     }
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View fragmentLayout = inflater.inflate(R.layout.fragment_review_search_add, container, false);
 
-        return fragmentLayout;
-    }
 }

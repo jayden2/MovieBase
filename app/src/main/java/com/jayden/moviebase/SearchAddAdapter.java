@@ -1,12 +1,12 @@
 package com.jayden.moviebase;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
 import java.util.List;
 
 /**
@@ -21,6 +21,8 @@ public class SearchAddAdapter extends ArrayAdapter<MovieTitle> {
 
     public SearchAddAdapter(Context context, List<MovieTitle> movies) {
         super(context, 0, movies);
+        Log.d("ADAPTER IS RUNNING", "");
+        Log.d("", movies.toString());
     }
 
     @Override
@@ -51,7 +53,6 @@ public class SearchAddAdapter extends ArrayAdapter<MovieTitle> {
             //get widgets from view holder
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
         //populate data into the template view
         viewHolder.movieTitle.setText(movie.getTitle());
         viewHolder.movieYear.setText(Long.toString(movie.getYear()));

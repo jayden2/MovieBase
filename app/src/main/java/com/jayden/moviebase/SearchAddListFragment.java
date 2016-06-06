@@ -1,8 +1,10 @@
 package com.jayden.moviebase;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -13,7 +15,7 @@ import java.util.ArrayList;
  */
 public class SearchAddListFragment extends ListFragment implements SearchSetHolder {
 
-    private static MovieAdapter resultAdapter;
+    private static SearchAddAdapter searchAddAdapter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -31,10 +33,20 @@ public class SearchAddListFragment extends ListFragment implements SearchSetHold
         //launch create intent store IMDB id for next view
     }
 
+    public void newSearchResults(String search) {
+        //perform search query
+        OMDBTasker tasker = new OMDBTasker(this);
+        tasker.execute("http://www.omdbapi.com/?s=" + search + "&type=movie");
+    }
+    //once the async JSON movie list get task is done, create and set the Movie adapter
     @Override
     public void getSearchFinished(ArrayList<MovieTitle> searchList) {
-        SearchAddAdapter searchAddAdapter = new SearchAddAdapter(getActivity(), searchList);
+        Log.d("Search Finished!!!", "");
+        Log.d("", String.valueOf(searchList));
+        searchAddAdapter = new SearchAddAdapter(getActivity().getParent(), searchList);
         setListAdapter(searchAddAdapter);
         searchAddAdapter.notifyDataSetChanged();
     }
+
+    //TODO LAUNCH DETAIL ADD REVIEW
 }
