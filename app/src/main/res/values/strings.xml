@@ -29,5 +29,7 @@
     <string name="view_fragment_title">View Fragment Title</string>
     <string name="image_cover">image cover</string>
     <string name="arrow_icon">arrow icon</string>
+    <string name="review_text">Type review here...</string>
+    <string name="save_button_text">Save Review</string>
 
 </resources>

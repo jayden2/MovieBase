@@ -13,14 +13,14 @@ import java.util.ArrayList;
 public class MainActivityListFragment extends ListFragment implements MoviesSetHolder {
 
     private static MovieAdapter movieAdapter;
-    private static ArrayList<MovieTitle> movieList;
+    private static ArrayList<MovieTitle> emptyList;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        movieList = new ArrayList<>();
-        movieAdapter = new MovieAdapter(getActivity(), movieList);
+        emptyList = new ArrayList<>();
+        movieAdapter = new MovieAdapter(getActivity(), emptyList);
         setListAdapter(movieAdapter);
 
         //get all movies from API
@@ -44,8 +44,8 @@ public class MainActivityListFragment extends ListFragment implements MoviesSetH
     //once the async JSON movie list get task is done, create and set the Movie adapter
     @Override
     public void getMoviesFinished(ArrayList<MovieTitle> resultList) {
-        movieList.clear();
-        movieList.addAll(resultList);
+        emptyList.clear();
+        emptyList.addAll(resultList);
         movieAdapter.notifyDataSetChanged();
     }
 

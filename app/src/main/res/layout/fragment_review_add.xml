@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jayden.moviebase.ReviewAddFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/movie_title"
+        android:id="@+id/movieTitle"
+        android:textColor="@color/titleColor"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_button_text"
+        android:id="@+id/saveButton"
+        android:layout_alignParentTop="true"
+        android:textColor="@color/colorWhite"
+        android:background="@color/colorPrimary"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_toRightOf="@id/movieTitle"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="8dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_below="@id/saveButton"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/reviewText"
+        android:hint="@string/review_text"
+        android:textColor="@color/titleColor"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentBottom="true"
+        android:maxLength="2500"
+        android:gravity="top"
+        android:layout_below="@+id/spinner" />
+
+
+</RelativeLayout>

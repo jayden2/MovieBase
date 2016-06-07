@@ -40,7 +40,7 @@ public class SearchAddListFragment extends ListFragment implements SearchSetHold
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
-        //launch create intent store IMDB id for next view
+        launchReviewDetailActivity(MainActivity.ReviewFragmentToLaunch.CREATE, position);
     }
 
     public void newSearchResults(String search) {
@@ -61,5 +61,21 @@ public class SearchAddListFragment extends ListFragment implements SearchSetHold
         }
     }
 
-    //TODO LAUNCH DETAIL ADD REVIEW
+    private void launchReviewDetailActivity(MainActivity.ReviewFragmentToLaunch view, int position) {
+
+        //get movie information associated with clicked movie list_row item
+        MovieTitle movie = (MovieTitle) getListAdapter().getItem(position);
+
+        //create intent to launch reviewDetailActivity
+        Intent intent = new Intent(getActivity(), ReviewDetailActivity.class);
+
+        //set movie information to main activity extra's to give to reviewDetailActivity
+        intent.putExtra(MainActivity.MOVIE_TITLE_EXTRA, movie.getTitle());
+        intent.putExtra(MainActivity.MOVIE_YEAR_EXTRA, Long.toString(movie.getYear()));
+
+        intent.putExtra(MainActivity.MOVIE_FRAGMENT_TO_LOAD_EXTRA, MainActivity.ReviewFragmentToLaunch.CREATE);
+
+        //open ReviewDetailActivity with either view or edit
+        startActivity(intent);
+    }
 }

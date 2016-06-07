@@ -13,7 +13,7 @@ import android.os.Bundle;
 public class ReviewDetailActivity extends AppCompatActivity {
 
     public static final String NEW_REVIEW_EXTRA = "New Review";
-    public static final String NEW_REVIEW_CREATE_EXTRA = "create Review";
+    public static final String NEW_REVIEW_CREATE_EXTRA = "Create Review";
     public static Context mContext;
 
     @Override
@@ -37,20 +37,27 @@ public class ReviewDetailActivity extends AppCompatActivity {
         //fragment manager and fragment transaction to select either the add, edit or view fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Bundle bundle = new Bundle();
 
         //select either edit, create or view fragment to ReviewDetailActivity
         switch (fragmentToLaunch) {
             case SEARCH:
                 SearchAddFragment searchAddFragment = new SearchAddFragment();
-                setTitle("Search movie to review");
+                setTitle("Search Movie to Review");
 
-                Bundle bundle = new Bundle();
                 bundle.putBoolean(NEW_REVIEW_EXTRA, true);
                 searchAddFragment.setArguments(bundle);
 
                 fragmentTransaction.add(R.id.review_container, searchAddFragment, "REVIEW_SEARCH_CREATE_FRAGMENT");
                 break;
             case CREATE:
+                ReviewAddFragment reviewAddFragment = new ReviewAddFragment();
+                setTitle("Create Review");
+
+                bundle.putBoolean(NEW_REVIEW_CREATE_EXTRA, true);
+                reviewAddFragment.setArguments(bundle);
+
+                fragmentTransaction.add(R.id.review_container, reviewAddFragment, "REVIEW_ADD_CREATE_FRAGMENT");
                 break;
             case EDIT:
                 break;
