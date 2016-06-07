@@ -1,5 +1,6 @@
 package com.jayden.moviebase;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,13 +14,15 @@ public class ReviewDetailActivity extends AppCompatActivity {
 
     public static final String NEW_REVIEW_EXTRA = "New Review";
     public static final String NEW_REVIEW_CREATE_EXTRA = "create Review";
+    public static Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //set view
         setContentView(R.layout.activity_review_detail);
-
+        // Set the context to be used by fragments
+        mContext = getApplicationContext();
         //set fragment to put into this activity/view
         createAndAddFragment();
     }

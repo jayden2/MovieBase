@@ -15,6 +15,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -75,7 +78,12 @@ public class SearchFragment extends Fragment {
 
     private void searchOMDB(String search) {
         SearchAddListFragment searchFrag = new SearchAddListFragment();
-        searchFrag.newSearchResults(search);
+        try{
+            String params = URLEncoder.encode(search, "UTF-8");
+            searchFrag.newSearchResults(params);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     //close keyboard, because android doesnt know how to by itself

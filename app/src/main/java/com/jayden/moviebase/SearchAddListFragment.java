@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 /**
@@ -16,26 +18,18 @@ import java.util.ArrayList;
 public class SearchAddListFragment extends ListFragment implements SearchSetHolder {
 
     private static SearchAddAdapter searchAddAdapter;
-    private ArrayList<MovieTitle> searchArray;
+    private static ArrayList<MovieTitle> searchArray;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ////////////////////////
-
-        MovieTitle movie = new MovieTitle();
-
-        movie.setTitle("Title");
-        movie.setYear(1993);
-
-        //adding object to array list
-        searchArray.add(movie);
-
+        //create empty array list to then later display results
+        searchArray = new ArrayList<>();
+        //create adapter to and set it the empty search array
         searchAddAdapter = new SearchAddAdapter(getActivity(), searchArray);
         setListAdapter(searchAddAdapter);
 
-        ////////////////////
 
         //set divider between fragments color and height
         getListView().setDivider(ContextCompat.getDrawable(getActivity(), android.R.color.darker_gray));
@@ -57,11 +51,14 @@ public class SearchAddListFragment extends ListFragment implements SearchSetHold
     //once the async JSON movie list get task is done, create and set the Movie adapter
     @Override
     public void getSearchFinished(ArrayList<MovieTitle> searchList) {
-        Log.d("Search Finished!!!", "");
-        Log.d("", String.valueOf(searchList));
-        searchAddAdapter = new SearchAddAdapter(getActivity().getApplicationContext(), searchList);
-        //setListAdapter(searchAddAdapter);
-        //searchAddAdapter.notifyDataSetChanged();
+        if (searchList != null) {
+            //clear default empty array list
+            searchArray.clear();
+            //add searchlist to search array
+            searchArray.addAll(searchList);
+            //notify adapter of change
+            searchAddAdapter.notifyDataSetChanged();
+        }
     }
 
     //TODO LAUNCH DETAIL ADD REVIEW
