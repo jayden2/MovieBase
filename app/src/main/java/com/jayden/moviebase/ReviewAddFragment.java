@@ -1,11 +1,18 @@
 package com.jayden.moviebase;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 /**
@@ -20,8 +27,6 @@ public class ReviewAddFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fragmentLayout = inflater.inflate(R.layout.fragment_review_add, container, false);
-
-        //https://developer.android.com/guide/topics/ui/controls/spinner.html
 
         //get frament views items ready to set
         TextView title = (TextView) fragmentLayout.findViewById(R.id.movieTitle);

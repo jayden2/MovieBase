@@ -15,29 +15,18 @@
         android:textColor="@color/titleColor"
         android:ellipsize="end"
         android:singleLine="true"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="20dp" />
 
-    <Button
+    <RatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/save_button_text"
-        android:id="@+id/saveButton"
-        android:layout_alignParentTop="true"
-        android:textColor="@color/colorWhite"
-        android:background="@color/colorPrimary"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:layout_toRightOf="@id/movieTitle"
+        android:id="@+id/ratingBar"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="8dp" />
-
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner"
-        android:layout_below="@id/saveButton"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@id/movieTitle"
+        android:rating="3.0"
+        android:theme="@style/RatingBar" />
 
     <EditText
         android:layout_width="match_parent"
@@ -49,11 +38,10 @@
         android:inputType="text"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_alignParentBottom="true"
         android:maxLength="2500"
         android:gravity="top"
-        android:layout_below="@+id/spinner" />
-
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/ratingBar" />
 
 </RelativeLayout>

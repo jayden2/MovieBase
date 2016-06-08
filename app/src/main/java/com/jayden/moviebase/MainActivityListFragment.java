@@ -25,7 +25,7 @@ public class MainActivityListFragment extends ListFragment implements MoviesSetH
 
         //get all movies from API
         JSONTasker tasker = new JSONTasker(this);
-        tasker.execute("https://moviebaseapi.herokuapp.com/api/movies/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxMDBAZW1haWwuY29tIiwicGFzc3dvcmQiOiJhYmMxMjMiLCJpYXQiOjE0NjQ4ODc2MjcsImV4cCI6MTQ2NTQ5MjQyN30.rmRPkQaM4iN73xQbaaCM-33wH4-6PnrQZfH5UH3oa0g");
+        tasker.execute("https://moviebaseapi.herokuapp.com/api/movies/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxMDBAZW1haWwuY29tIiwicGFzc3dvcmQiOiJhYmMxMjMiLCJpYXQiOjE0NjUzNTc4MTAsImV4cCI6MTQ2NTk2MjYxMH0.WC1vfx_6I7W2W92HsttoyQC4X1NE5AAvE1P3bURGBM8");
 
         //set divider between fragments color and height
         getListView().setDivider(ContextCompat.getDrawable(getActivity(), android.R.color.darker_gray));

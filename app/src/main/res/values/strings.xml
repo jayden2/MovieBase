@@ -31,5 +31,6 @@
     <string name="arrow_icon">arrow icon</string>
     <string name="review_text">Type review here...</string>
     <string name="save_button_text">Save Review</string>
+    <string name="action_save">Save Review</string>
 
 </resources>

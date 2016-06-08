@@ -21,8 +21,6 @@ public class SearchAddAdapter extends ArrayAdapter<MovieTitle> {
 
     public SearchAddAdapter(Context context, List<MovieTitle> movies) {
         super(context, 0, movies);
-        Log.d("ADAPTER IS RUNNING", "");
-        Log.d("", movies.toString());
     }
 
     @Override

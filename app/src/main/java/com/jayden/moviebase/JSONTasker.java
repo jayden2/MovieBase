@@ -36,6 +36,7 @@ public class JSONTasker extends AsyncTask<String, String, ArrayList<MovieTitle>>
             URL url = new URL(params[0]);
             //set up URL connection and open open connection
             connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(15000);
             //connect to API
             connection.connect();
 

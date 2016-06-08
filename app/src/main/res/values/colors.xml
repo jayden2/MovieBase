@@ -13,4 +13,7 @@
     <color name="arrowColor">#4d5050</color>
     <color name="circleColor">#b73c56</color>
     <color name="reviewBackColor">#b73c56</color>
+
+    <color name="duskYellow">#ffca28</color>
+    <color name="lightGrey">#e0e0e0</color>
 </resources>
