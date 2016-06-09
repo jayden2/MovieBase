@@ -6,6 +6,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -14,7 +15,9 @@ import android.widget.ArrayAdapter;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -23,6 +26,7 @@ import java.util.ArrayList;
 public class ReviewAddFragment extends Fragment implements SearchSetHolder {
 
     private Intent intent;
+    public  MovieTitle movieToPost;
 
     public ReviewAddFragment() {
         //Empty Constructor
@@ -48,12 +52,21 @@ public class ReviewAddFragment extends Fragment implements SearchSetHolder {
 
     private void getImdbResult(String imdbID) {
         //perform search query
-        OMDBTasker tasker = new OMDBTasker(this);
-        tasker.execute("http://www.omdbapi.com/?i=" + imdbID);
+        OMDBTasker tasker = new OMDBTasker(this, "IMDB");
+        tasker.execute("http://www.omdbapi.com/?i=" + imdbID + "&plot=short&r=json");
     }
 
     @Override
-    public void getSearchFinished(ArrayList<MovieTitle> searchList) {
+    public void getSearchFinished(ArrayList<MovieTitle> movieDetails) {
 
+        //set the MovieTitle object to the the public object to then later save to the database
+        if (movieDetails != null) {
+            movieToPost = movieDetails.get(0);
+            Log.d(movieToPost.getTitle(), "");
+            Log.d(movieToPost.getDescription(), "");
+            Log.d(movieToPost.getCover(), "");
+        } else {
+            Toast.makeText(getActivity(), "Failed to get movie details", Toast.LENGTH_SHORT).show();
+        }
     }
 }

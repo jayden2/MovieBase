@@ -1,7 +1,6 @@
 package com.jayden.moviebase;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,10 +19,12 @@ import java.util.ArrayList;
  */
 public class OMDBTasker extends AsyncTask<String, String, ArrayList<MovieTitle>> {
 
+    private final String typeURL;
     private SearchSetHolder searchAsyncTasker;
 
-    public OMDBTasker(SearchSetHolder searchAsyncTasker){
+    public OMDBTasker(SearchSetHolder searchAsyncTasker, String typeURL){
         this.searchAsyncTasker = searchAsyncTasker;
+        this.typeURL = typeURL;
     }
 
     @Override
@@ -36,6 +37,7 @@ public class OMDBTasker extends AsyncTask<String, String, ArrayList<MovieTitle>>
         try {
             //basic URL to API
             URL url = new URL(params[0]);
+
             //set up URL connection and open open connection
             connection = (HttpURLConnection) url.openConnection();
             //connect to API
@@ -50,27 +52,54 @@ public class OMDBTasker extends AsyncTask<String, String, ArrayList<MovieTitle>>
             while((line = reader.readLine()) !=null) {
                 result.append(line);
             }
-            //sort received JSON data
-            JSONObject JSONObject = new JSONObject(result.toString());
-            JSONArray JSONdata = JSONObject.getJSONArray("Search");
 
-            ArrayList<MovieTitle> movies = new ArrayList<>();
 
-            for (int i = 0; i < JSONdata.length(); i++) {
-                //set all the values to the movieTitle object
-                JSONObject movieData = JSONdata.getJSONObject(i);
+            //search object, search has json object where as through imdb id its only an array
+            if (typeURL == "SEARCH") {
+
+                //sort received JSON data
+                JSONObject JSONObject = new JSONObject(result.toString());
+                JSONArray JSONdata = JSONObject.getJSONArray("Search");
+
+                ArrayList<MovieTitle> movies = new ArrayList<>();
+
+                for (int i = 0; i < JSONdata.length(); i++) {
+                    //set all the values to the movieTitle object
+                    JSONObject movieData = JSONdata.getJSONObject(i);
+                    MovieTitle movie = new MovieTitle();
+
+                    //set object specific data for search list
+                    movie.setTitle(movieData.getString("Title"));
+                    movie.setYear(movieData.getLong("Year"));
+                    movie.setImdb(movieData.getString("imdbID"));
+
+                    //adding object to array list
+                    movies.add(movie);
+                }
+
+                return movies;
+
+            } else if (typeURL == "IMDB") {
+
+                //sort received JSON data
+                JSONObject movieData = new JSONObject(result.toString());
+                //create array list and movie object
+                ArrayList<MovieTitle> movies = new ArrayList<>();
                 MovieTitle movie = new MovieTitle();
 
+                //set all the data to the object
                 movie.setTitle(movieData.getString("Title"));
+                movie.setRating(movieData.getString("Rated"));
+                movie.setDescription(movieData.getString("Plot"));
+                movie.setGenre(movieData.getString("Genre"));
+                movie.setCover(movieData.getString("Poster"));
                 movie.setYear(movieData.getLong("Year"));
-                movie.setImdb(movieData.getString("imdbID"));
 
-                //adding object to array list
+                //add object to array list
                 movies.add(movie);
-                Log.d("", movie.getTitle());
-            }
 
-            return movies;
+                return movies;
+            }
 
         //catch any errors from connection to API or errors from reader
         } catch (IOException e) {

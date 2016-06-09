@@ -6,20 +6,22 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 /**
  * Created by Jayden on 05-Jun-16.
  */
-public class ReviewDetailActivity extends AppCompatActivity {
+public class ReviewDetailActivity extends AppCompatActivity implements MoviesSetHolder {
 
     public static final String NEW_REVIEW_EXTRA = "New Review";
     public static final String NEW_REVIEW_CREATE_EXTRA = "Create Review";
     public static Context mContext;
     private static FragmentManager fragmentManager;
+    private static String url = "https://moviebaseapi.herokuapp.com/api/movies/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxMDBAZW1haWwuY29tIiwicGFzc3dvcmQiOiJhYmMxMjMiLCJpYXQiOjE0NjUzNTc4MTAsImV4cCI6MTQ2NTk2MjYxMH0.WC1vfx_6I7W2W92HsttoyQC4X1NE5AAvE1P3bURGBM8";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,10 +98,23 @@ public class ReviewDetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_save) {
+
+            postReview();
+
             Toast.makeText(this, "Save Not Ready :)", Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private void postReview() {
+        //perform search query
+        JSONTasker tasker = new JSONTasker(this, "POST_REVIEW");
+        tasker.execute(url);
+    }
+
+    @Override
+    public void getMoviesFinished(ArrayList<MovieTitle> movieList) {
+
+    }
 }

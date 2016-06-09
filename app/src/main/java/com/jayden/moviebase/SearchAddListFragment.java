@@ -4,12 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 /**
@@ -46,7 +44,7 @@ public class SearchAddListFragment extends ListFragment implements SearchSetHold
 
     public void newSearchResults(String search) {
         //perform search query
-        OMDBTasker tasker = new OMDBTasker(this);
+        OMDBTasker tasker = new OMDBTasker(this, "SEARCH");
         tasker.execute("http://www.omdbapi.com/?s=" + search + "&type=movie");
     }
     //once the async JSON movie list get task is done, create and set the Movie adapter
@@ -59,6 +57,8 @@ public class SearchAddListFragment extends ListFragment implements SearchSetHold
             searchArray.addAll(searchList);
             //notify adapter of change
             searchAddAdapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(getContext(), "Failed to retrieve search results", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -59,6 +60,7 @@ public class ReviewViewFragment extends Fragment {
             @Override
             public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                 progressBar.setVisibility(View.GONE);
+                Toast.makeText(view.getContext(), "Failed to load image!", Toast.LENGTH_SHORT).show();
             }
 
             @Override

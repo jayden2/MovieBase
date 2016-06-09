@@ -19,9 +19,11 @@ import java.util.ArrayList;
 public class JSONTasker extends AsyncTask<String, String, ArrayList<MovieTitle>> {
 
     private MoviesSetHolder movieAsyncListener;
+    private String typeURL;
 
-    public JSONTasker(MoviesSetHolder movieAsyncListener){
+    public JSONTasker(MoviesSetHolder movieAsyncListener, String typeURL){
         this.movieAsyncListener = movieAsyncListener;
+        this.typeURL = typeURL;
     }
 
     @Override
@@ -50,34 +52,42 @@ public class JSONTasker extends AsyncTask<String, String, ArrayList<MovieTitle>>
                 result.append(line);
             }
 
-            //sort received JSON data
-            JSONArray JSONdata = new JSONArray(result.toString());
+            //get movie from heroku API / database and sort the data into movie objects and return
+            if (typeURL == "GET_MOVIES") {
 
-            ArrayList<MovieTitle> movies = new ArrayList<>();
+                //sort received JSON data
+                JSONArray JSONdata = new JSONArray(result.toString());
 
-            for (int i = 0; i < JSONdata.length(); i++) {
-                //set all the values to the movieTitle object
-                JSONObject movieData = JSONdata.getJSONObject(i);
-                MovieTitle movie = new MovieTitle();
+                ArrayList<MovieTitle> movies = new ArrayList<>();
 
-                movie.setMovieId(movieData.getLong("id"));
-                movie.setTitle(movieData.getString("title"));
-                movie.setRating(movieData.getString("rating"));
-                movie.setScore(movieData.getLong("score"));
-                movie.setDescription(movieData.getString("description"));
-                movie.setGenre(movieData.getString("genre"));
-                movie.setReview(movieData.getString("review"));
-                movie.setCover(movieData.getString("cover"));
-                movie.setYear(movieData.getLong("year"));
-                movie.setUserId(movieData.getLong("user_id"));
-                movie.setUpdatedAt(movieData.getString("updated_at"));
-                movie.setCreatedAt(movieData.getString("created_at"));
+                for (int i = 0; i < JSONdata.length(); i++) {
+                    //set all the values to the movieTitle object
+                    JSONObject movieData = JSONdata.getJSONObject(i);
+                    MovieTitle movie = new MovieTitle();
 
-                //adding object to array list
-                movies.add(movie);
+                    movie.setMovieId(movieData.getLong("id"));
+                    movie.setTitle(movieData.getString("title"));
+                    movie.setRating(movieData.getString("rating"));
+                    movie.setScore(movieData.getLong("score"));
+                    movie.setDescription(movieData.getString("description"));
+                    movie.setGenre(movieData.getString("genre"));
+                    movie.setReview(movieData.getString("review"));
+                    movie.setCover(movieData.getString("cover"));
+                    movie.setYear(movieData.getLong("year"));
+                    movie.setUserId(movieData.getLong("user_id"));
+                    movie.setUpdatedAt(movieData.getString("updated_at"));
+                    movie.setCreatedAt(movieData.getString("created_at"));
+
+                    //adding object to array list
+                    movies.add(movie);
+                }
+
+                return movies;
+
+            } else if (typeURL == "POST_REVIEW") {
+
+                
             }
-
-            return movies;
 
             //catch any errors from connection to API or errors from reader
         } catch (IOException e) {

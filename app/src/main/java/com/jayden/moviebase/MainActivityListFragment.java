@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ public class MainActivityListFragment extends ListFragment implements MoviesSetH
     private static MovieAdapter movieAdapter;
     private static ArrayList<MovieTitle> movieList;
     private ProgressBar progressBar;
+    private static String url = "https://moviebaseapi.herokuapp.com/api/movies/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxMDBAZW1haWwuY29tIiwicGFzc3dvcmQiOiJhYmMxMjMiLCJpYXQiOjE0NjUzNTc4MTAsImV4cCI6MTQ2NTk2MjYxMH0.WC1vfx_6I7W2W92HsttoyQC4X1NE5AAvE1P3bURGBM8";
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -32,8 +34,8 @@ public class MainActivityListFragment extends ListFragment implements MoviesSetH
                 android.graphics.PorterDuff.Mode.MULTIPLY);
 
         //get all movies from API
-        JSONTasker tasker = new JSONTasker(this);
-        tasker.execute("https://moviebaseapi.herokuapp.com/api/movies/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxMDBAZW1haWwuY29tIiwicGFzc3dvcmQiOiJhYmMxMjMiLCJpYXQiOjE0NjUzNTc4MTAsImV4cCI6MTQ2NTk2MjYxMH0.WC1vfx_6I7W2W92HsttoyQC4X1NE5AAvE1P3bURGBM8");
+        JSONTasker tasker = new JSONTasker(this, "GET_MOVIES");
+        tasker.execute(url);
 
         //set divider between fragments color and height
         getListView().setDivider(ContextCompat.getDrawable(getActivity(), android.R.color.darker_gray));
@@ -61,6 +63,8 @@ public class MainActivityListFragment extends ListFragment implements MoviesSetH
             movieList.clear();
             movieList.addAll(resultList);
             movieAdapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(getActivity(), "Failed to get movie reviews", Toast.LENGTH_SHORT).show();
         }
     }
 
