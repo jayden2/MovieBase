@@ -15,10 +15,14 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 /**
  * Created by jayden on 7/06/2016.
  */
-public class ReviewAddFragment extends Fragment {
+public class ReviewAddFragment extends Fragment implements SearchSetHolder {
+
+    private Intent intent;
 
     public ReviewAddFragment() {
         //Empty Constructor
@@ -28,14 +32,28 @@ public class ReviewAddFragment extends Fragment {
                              Bundle savedInstanceState) {
         View fragmentLayout = inflater.inflate(R.layout.fragment_review_add, container, false);
 
+        intent = getActivity().getIntent();
+
+        //get information to store to later store to database about the title
+        getImdbResult(intent.getExtras().getString(MainActivity.MOVIE_IMDB_EXTRA));
+
         //get frament views items ready to set
         TextView title = (TextView) fragmentLayout.findViewById(R.id.movieTitle);
-
-        Intent intent = getActivity().getIntent();
 
         //set review view display template
         title.setText(intent.getExtras().getString(MainActivity.MOVIE_TITLE_EXTRA));
 
         return fragmentLayout;
+    }
+
+    private void getImdbResult(String imdbID) {
+        //perform search query
+        OMDBTasker tasker = new OMDBTasker(this);
+        tasker.execute("http://www.omdbapi.com/?i=" + imdbID);
+    }
+
+    @Override
+    public void getSearchFinished(ArrayList<MovieTitle> searchList) {
+
     }
 }

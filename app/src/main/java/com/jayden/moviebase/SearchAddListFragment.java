@@ -40,6 +40,7 @@ public class SearchAddListFragment extends ListFragment implements SearchSetHold
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
+        //launch create review fragment from row clicked
         launchReviewDetailActivity(MainActivity.ReviewFragmentToLaunch.CREATE, position);
     }
 
@@ -72,6 +73,7 @@ public class SearchAddListFragment extends ListFragment implements SearchSetHold
         //set movie information to main activity extra's to give to reviewDetailActivity
         intent.putExtra(MainActivity.MOVIE_TITLE_EXTRA, movie.getTitle());
         intent.putExtra(MainActivity.MOVIE_YEAR_EXTRA, Long.toString(movie.getYear()));
+        intent.putExtra(MainActivity.MOVIE_IMDB_EXTRA, movie.getImdb());
 
         intent.putExtra(MainActivity.MOVIE_FRAGMENT_TO_LOAD_EXTRA, MainActivity.ReviewFragmentToLaunch.CREATE);
 
