@@ -1,11 +1,13 @@
 package com.jayden.moviebase;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
@@ -13,15 +15,21 @@ import java.util.ArrayList;
 public class MainActivityListFragment extends ListFragment implements MoviesSetHolder {
 
     private static MovieAdapter movieAdapter;
-    private static ArrayList<MovieTitle> emptyList;
+    private static ArrayList<MovieTitle> movieList;
+    private ProgressBar progressBar;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        emptyList = new ArrayList<>();
-        movieAdapter = new MovieAdapter(getActivity(), emptyList);
+        movieList = new ArrayList<>();
+        movieAdapter = new MovieAdapter(getActivity(), movieList);
         setListAdapter(movieAdapter);
+
+        progressBar = (ProgressBar) getActivity().findViewById(R.id.progressBar2);
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FF29C9BB"),
+                android.graphics.PorterDuff.Mode.MULTIPLY);
 
         //get all movies from API
         JSONTasker tasker = new JSONTasker(this);
@@ -44,9 +52,16 @@ public class MainActivityListFragment extends ListFragment implements MoviesSetH
     //once the async JSON movie list get task is done, create and set the Movie adapter
     @Override
     public void getMoviesFinished(ArrayList<MovieTitle> resultList) {
-        emptyList.clear();
-        emptyList.addAll(resultList);
-        movieAdapter.notifyDataSetChanged();
+
+        //when task is finished set to gone
+        progressBar.setVisibility(View.GONE);
+
+        if (resultList != null) {
+            //clear empty list
+            movieList.clear();
+            movieList.addAll(resultList);
+            movieAdapter.notifyDataSetChanged();
+        }
     }
 
     private void launchReviewDetailActivity(MainActivity.ReviewFragmentToLaunch view, int position) {

@@ -2,6 +2,7 @@ package com.jayden.moviebase;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -51,6 +52,8 @@ public class ReviewViewFragment extends Fragment {
             @Override
             public void onLoadingStarted(String imageUri, View view) {
                 progressBar.setVisibility(View.VISIBLE);
+                progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FF29C9BB"),
+                        android.graphics.PorterDuff.Mode.MULTIPLY);
             }
             //if fails, complete or canceled display invisible
             @Override
