@@ -46,6 +46,7 @@
         android:gravity="top|left"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:text="basfhjioalsfhjaslfaslkdfa slkasdfhaskldjasldkajsdlkasdj"
         android:layout_below="@+id/ratingBar" />
 
 </RelativeLayout>

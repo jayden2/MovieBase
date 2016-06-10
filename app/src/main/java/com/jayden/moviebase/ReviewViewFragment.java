@@ -43,6 +43,9 @@ public class ReviewViewFragment extends Fragment {
         TextView score = (TextView) fragmentLayout.findViewById(R.id.viewMovieScore);
         ImageView cover = (ImageView) fragmentLayout.findViewById(R.id.viewReviewCover);
         final ProgressBar progressBar = (ProgressBar) fragmentLayout.findViewById(R.id.progressBar);
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FF29C9BB"),
+                android.graphics.PorterDuff.Mode.MULTIPLY);
+        progressBar.setVisibility(View.VISIBLE);
 
         Intent intent = getActivity().getIntent();
 
@@ -53,8 +56,6 @@ public class ReviewViewFragment extends Fragment {
             @Override
             public void onLoadingStarted(String imageUri, View view) {
                 progressBar.setVisibility(View.VISIBLE);
-                progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FF29C9BB"),
-                        android.graphics.PorterDuff.Mode.MULTIPLY);
             }
             //if fails, complete or canceled display invisible
             @Override

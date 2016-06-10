@@ -19,9 +19,9 @@
     <string name="movie_description">Movie Description</string>
     <string name="movie_year">Movie Year</string>
     <string name="movie_rating">Movie Rating</string>
-    <string name="movie_review">Movie Review</string>
+    <string name="movie_review">Movie Review. Text Text Text Text Text Text Text Text Text Text</string>
     <string name="movie_score">10</string>
-    <string name="movie_title">Movie Title</string>
+    <string name="movie_title">Movie Title. Movie Title. Movie Title. Movie Title. Movie Title.</string>
     <string name="search_hint">Enter Movie Name</string>
     <string name="movie_genre">Movie Genre</string>
     <string name="movie_cover_image">movie cover image</string>

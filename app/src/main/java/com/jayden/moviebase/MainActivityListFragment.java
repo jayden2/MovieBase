@@ -34,7 +34,7 @@ public class MainActivityListFragment extends ListFragment implements MoviesSetH
                 android.graphics.PorterDuff.Mode.MULTIPLY);
 
         //get all movies from API
-        JSONTasker tasker = new JSONTasker(this, "GET_MOVIES");
+        JSONTasker tasker = new JSONTasker(this, "GET_MOVIES", null);
         tasker.execute(url);
 
         //set divider between fragments color and height

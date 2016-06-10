@@ -1,15 +1,19 @@
 package com.jayden.moviebase;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -18,12 +22,17 @@ import java.util.ArrayList;
  */
 public class JSONTasker extends AsyncTask<String, String, ArrayList<MovieTitle>> {
 
+    private static MovieTitle moviePost;
     private MoviesSetHolder movieAsyncListener;
     private String typeURL;
+    private static DataOutputStream outputStream;
+    private static String charset = "UTF-8";
+    private static StringBuilder paramsBuilder;
 
-    public JSONTasker(MoviesSetHolder movieAsyncListener, String typeURL){
+    public JSONTasker(MoviesSetHolder movieAsyncListener, String typeURL, MovieTitle moviePost){
         this.movieAsyncListener = movieAsyncListener;
         this.typeURL = typeURL;
+        this.moviePost = moviePost;
     }
 
     @Override
@@ -37,23 +46,25 @@ public class JSONTasker extends AsyncTask<String, String, ArrayList<MovieTitle>>
             //basic URL to API
             URL url = new URL(params[0]);
             //set up URL connection and open open connection
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setConnectTimeout(15000);
-            //connect to API
-            connection.connect();
 
-            //get data from connection and set up reader
-            InputStream stream = connection.getInputStream();
-            reader = new BufferedReader(new InputStreamReader(stream));
-            StringBuilder result = new StringBuilder();
 
-            //read line and append from input, while more lines
-            while((line = reader.readLine()) !=null) {
-                result.append(line);
-            }
 
             //get movie from heroku API / database and sort the data into movie objects and return
             if (typeURL == "GET_MOVIES") {
+                //connect to API
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setConnectTimeout(15000);
+                connection.connect();
+                //get data from connection and set up reader
+                InputStream stream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+                StringBuilder result = new StringBuilder();
+
+                //read line and append from input, while more lines
+                while((line = reader.readLine()) !=null) {
+                    result.append(line);
+                }
+
 
                 //sort received JSON data
                 JSONArray JSONdata = new JSONArray(result.toString());
@@ -85,8 +96,45 @@ public class JSONTasker extends AsyncTask<String, String, ArrayList<MovieTitle>>
                 return movies;
 
             } else if (typeURL == "POST_REVIEW") {
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("POST");
+                connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                connection.setRequestProperty("Accept-Charset", charset);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+                connection.setConnectTimeout(15000);
+                connection.setReadTimeout(10000);
+                connection.connect();
 
-                
+                paramsBuilder = buildPostReviewData();
+                String paramsString = paramsBuilder.toString();
+                outputStream = new DataOutputStream(connection.getOutputStream());
+                outputStream.writeBytes(paramsString);
+                outputStream.flush();
+                outputStream.close();
+
+                InputStream stream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+                StringBuilder result = new StringBuilder();
+
+                //read line and append from input, while more lines
+                while((line = reader.readLine()) !=null) {
+                    result.append(line);
+                }
+
+                //sort received JSON data
+                JSONObject movieData = new JSONObject(result.toString());
+                //create array list and movie object
+                ArrayList<MovieTitle> movies = new ArrayList<>();
+                MovieTitle movie = new MovieTitle();
+
+                //set all the data to the object
+                movie.setReview(movieData.getString("success"));
+                movie.setTitle(movieData.getString("message"));
+
+                movies.add(movie);
+
+                return movies;
             }
 
             //catch any errors from connection to API or errors from reader
@@ -115,5 +163,30 @@ public class JSONTasker extends AsyncTask<String, String, ArrayList<MovieTitle>>
     protected void onPostExecute(ArrayList<MovieTitle> result) {
         //set the result of the JSON call and sorting into an object array list for MainActivityListFragment to call
         movieAsyncListener.getMoviesFinished(result);
+    }
+
+    private static StringBuilder buildPostReviewData(){
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        try {
+            //
+            stringBuilder.append("title=" + URLEncoder.encode(moviePost.getTitle(), charset));
+            stringBuilder.append("&rating=" + URLEncoder.encode(moviePost.getRating(), charset));
+            stringBuilder.append("&description=" + URLEncoder.encode(moviePost.getDescription(), charset));
+            stringBuilder.append("&score=" + URLEncoder.encode(String.valueOf(moviePost.getScore()), charset));
+            stringBuilder.append("&review=" + URLEncoder.encode(moviePost.getReview(), charset));
+            stringBuilder.append("&cover=" + URLEncoder.encode(moviePost.getCover(), charset));
+            stringBuilder.append("&year=" + URLEncoder.encode(String.valueOf(moviePost.getYear()), charset));
+            stringBuilder.append("&genre=" + URLEncoder.encode(moviePost.getGenre(), charset));
+            stringBuilder.append("&user_id=" + URLEncoder.encode(String.valueOf(moviePost.getUserId()), charset));
+
+        } catch (UnsupportedEncodingException e) {
+
+            e.printStackTrace();
+        }
+
+
+        return stringBuilder;
     }
 }

@@ -6,8 +6,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -99,9 +102,22 @@ public class ReviewDetailActivity extends AppCompatActivity implements MoviesSet
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_save) {
 
+
+            //set review, score and user id to then post to database
+            ReviewAddFragment.movieToPost.setReview(ReviewAddFragment.reviewText.getText().toString());
+            //get rating and times it by 2 as starts are 0.5 to 5.0
+            String tempScore = String.valueOf(ReviewAddFragment.reviewScore.getRating() * 2);
+            //a rating has a . so we want to change that from fom
+            tempScore = tempScore.replace(".","");
+            //if the temp score start with 0 then remove that as well
+            Log.d("Score: ", tempScore);
+
+            ReviewAddFragment.movieToPost.setScore(Long.parseLong(tempScore));
+            Log.d("Score Final: ", String.valueOf(ReviewAddFragment.movieToPost.getScore()));
+            ReviewAddFragment.movieToPost.setUserId(2);
+
             postReview();
 
-            Toast.makeText(this, "Save Not Ready :)", Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -109,12 +125,21 @@ public class ReviewDetailActivity extends AppCompatActivity implements MoviesSet
 
     private void postReview() {
         //perform search query
-        JSONTasker tasker = new JSONTasker(this, "POST_REVIEW");
+        JSONTasker tasker = new JSONTasker(this, "POST_REVIEW", ReviewAddFragment.movieToPost);
         tasker.execute(url);
     }
 
     @Override
     public void getMoviesFinished(ArrayList<MovieTitle> movieList) {
-
+        //get back list from POST movie, ive set success under the movie title object review so i can get back the data and make sure its been posted
+        if  (movieList != null) {
+            if (movieList.get(0).getReview() == "true") {
+                Toast.makeText(this, "Movie Review has been Posted", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Failed to post movie review", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "Failed to post movie review", Toast.LENGTH_SHORT).show();
+        }
     }
 }

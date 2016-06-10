@@ -1,23 +1,17 @@
 package com.jayden.moviebase;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.RatingBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -26,7 +20,9 @@ import java.util.ArrayList;
 public class ReviewAddFragment extends Fragment implements SearchSetHolder {
 
     private Intent intent;
-    public  MovieTitle movieToPost;
+    public static MovieTitle movieToPost;
+    public static EditText reviewText;
+    public static RatingBar reviewScore;
 
     public ReviewAddFragment() {
         //Empty Constructor
@@ -37,6 +33,9 @@ public class ReviewAddFragment extends Fragment implements SearchSetHolder {
         View fragmentLayout = inflater.inflate(R.layout.fragment_review_add, container, false);
 
         intent = getActivity().getIntent();
+
+        reviewText = (EditText) fragmentLayout.findViewById(R.id.reviewText);
+        reviewScore = (RatingBar) fragmentLayout.findViewById(R.id.ratingBar);
 
         //get information to store to later store to database about the title
         getImdbResult(intent.getExtras().getString(MainActivity.MOVIE_IMDB_EXTRA));
@@ -62,9 +61,6 @@ public class ReviewAddFragment extends Fragment implements SearchSetHolder {
         //set the MovieTitle object to the the public object to then later save to the database
         if (movieDetails != null) {
             movieToPost = movieDetails.get(0);
-            Log.d(movieToPost.getTitle(), "");
-            Log.d(movieToPost.getDescription(), "");
-            Log.d(movieToPost.getCover(), "");
         } else {
             Toast.makeText(getActivity(), "Failed to get movie details", Toast.LENGTH_SHORT).show();
         }
