@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class SearchAddListFragment extends ListFragment implements SearchSetHold
     private static SearchAddAdapter searchAddAdapter;
     private static ArrayList<MovieTitle> searchArray;
     private static ProgressBar progressBar;
+    private static TextView textView;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -30,6 +32,9 @@ public class SearchAddListFragment extends ListFragment implements SearchSetHold
         progressBar.setVisibility(View.GONE);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FF29C9BB"),
                 android.graphics.PorterDuff.Mode.MULTIPLY);
+
+        textView = (TextView) getActivity().findViewById(R.id.no_results);
+        textView.setVisibility(View.GONE);
 
         //create empty array list to then later display results
         searchArray = new ArrayList<>();
@@ -63,9 +68,10 @@ public class SearchAddListFragment extends ListFragment implements SearchSetHold
     //once the async JSON movie list get task is done, create and set the Movie adapter
     @Override
     public void getSearchFinished(ArrayList<MovieTitle> searchList) {
-        if (searchList != null) {
+        if (searchList != null && searchList.size() > 0) {
             //hide progress bar
             progressBar.setVisibility(View.GONE);
+            textView.setVisibility(View.GONE);
             //clear default empty array list
             searchArray.clear();
             //add searchlist to search array
@@ -73,7 +79,9 @@ public class SearchAddListFragment extends ListFragment implements SearchSetHold
             //notify adapter of change
             searchAddAdapter.notifyDataSetChanged();
         } else {
-            Toast.makeText(getContext(), "Failed to retrieve search results", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
+            //Toast.makeText(getActivity(), "Failed to retrieve search results", Toast.LENGTH_SHORT).show();
         }
     }
 

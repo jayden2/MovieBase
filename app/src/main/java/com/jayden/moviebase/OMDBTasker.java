@@ -1,8 +1,6 @@
 package com.jayden.moviebase;
 
 import android.os.AsyncTask;
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,13 +51,11 @@ public class OMDBTasker extends AsyncTask<String, String, ArrayList<MovieTitle>>
             while((line = reader.readLine()) !=null) {
                 result.append(line);
             }
-
+            JSONObject JSONObject = new JSONObject(result.toString());
 
             //search object, search has json object where as through imdb id its only an array
-            if (typeURL == "SEARCH") {
-
-                //sort received JSON data
-                JSONObject JSONObject = new JSONObject(result.toString());
+            //sort received JSON data
+            if (typeURL == "SEARCH") try {
                 JSONArray JSONdata = JSONObject.getJSONArray("Search");
 
                 ArrayList<MovieTitle> movies = new ArrayList<>();
@@ -79,22 +75,22 @@ public class OMDBTasker extends AsyncTask<String, String, ArrayList<MovieTitle>>
                 }
 
                 return movies;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            else if (typeURL == "IMDB") {
 
-            } else if (typeURL == "IMDB") {
-
-                //sort received JSON data
-                JSONObject movieData = new JSONObject(result.toString());
                 //create array list and movie object
                 ArrayList<MovieTitle> movies = new ArrayList<>();
                 MovieTitle movie = new MovieTitle();
 
                 //set all the data to the object
-                movie.setTitle(movieData.getString("Title"));
-                movie.setRating(movieData.getString("Rated"));
-                movie.setDescription(movieData.getString("Plot"));
-                movie.setGenre(movieData.getString("Genre"));
-                movie.setCover(movieData.getString("Poster"));
-                movie.setYear(movieData.getLong("Year"));
+                movie.setTitle(JSONObject.getString("Title"));
+                movie.setRating(JSONObject.getString("Rated"));
+                movie.setDescription(JSONObject.getString("Plot"));
+                movie.setGenre(JSONObject.getString("Genre"));
+                movie.setCover(JSONObject.getString("Poster"));
+                movie.setYear(JSONObject.getLong("Year"));
 
                 //add object to array list
                 movies.add(movie);
