@@ -96,6 +96,7 @@ public class JSONTasker extends AsyncTask<String, String, ArrayList<MovieTitle>>
                 return movies;
 
             } else if (typeURL == "POST_REVIEW") {
+                //set connection to post, set input and output and that its a form, and set charset
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -106,6 +107,7 @@ public class JSONTasker extends AsyncTask<String, String, ArrayList<MovieTitle>>
                 connection.setReadTimeout(10000);
                 connection.connect();
 
+                //build string and then send it it through POST and close
                 paramsBuilder = buildPostReviewData();
                 String paramsString = paramsBuilder.toString();
                 outputStream = new DataOutputStream(connection.getOutputStream());
@@ -133,7 +135,7 @@ public class JSONTasker extends AsyncTask<String, String, ArrayList<MovieTitle>>
                 movie.setTitle(movieData.getString("message"));
 
                 movies.add(movie);
-
+                //return success
                 return movies;
             }
 
@@ -170,7 +172,7 @@ public class JSONTasker extends AsyncTask<String, String, ArrayList<MovieTitle>>
         StringBuilder stringBuilder = new StringBuilder();
 
         try {
-            //
+            //build string with paramaters and vablues
             stringBuilder.append("title=" + URLEncoder.encode(moviePost.getTitle(), charset));
             stringBuilder.append("&rating=" + URLEncoder.encode(moviePost.getRating(), charset));
             stringBuilder.append("&description=" + URLEncoder.encode(moviePost.getDescription(), charset));
@@ -186,7 +188,7 @@ public class JSONTasker extends AsyncTask<String, String, ArrayList<MovieTitle>>
             e.printStackTrace();
         }
 
-
+        //return built string
         return stringBuilder;
     }
 }

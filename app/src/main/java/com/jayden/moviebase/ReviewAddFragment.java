@@ -23,6 +23,7 @@ public class ReviewAddFragment extends Fragment implements SearchSetHolder {
     public static MovieTitle movieToPost;
     public static EditText reviewText;
     public static RatingBar reviewScore;
+    private Boolean ready = false;
 
     public ReviewAddFragment() {
         //Empty Constructor
@@ -34,6 +35,7 @@ public class ReviewAddFragment extends Fragment implements SearchSetHolder {
 
         intent = getActivity().getIntent();
 
+        //get review and score on fragment
         reviewText = (EditText) fragmentLayout.findViewById(R.id.reviewText);
         reviewScore = (RatingBar) fragmentLayout.findViewById(R.id.ratingBar);
 
@@ -50,9 +52,14 @@ public class ReviewAddFragment extends Fragment implements SearchSetHolder {
     }
 
     private void getImdbResult(String imdbID) {
-        //perform search query
-        OMDBTasker tasker = new OMDBTasker(this, "IMDB");
-        tasker.execute("http://www.omdbapi.com/?i=" + imdbID + "&plot=short&r=json");
+        //perform search query, if details have been received
+        if (ready == true) {
+            OMDBTasker tasker = new OMDBTasker(this, "IMDB");
+            tasker.execute("http://www.omdbapi.com/?i=" + imdbID + "&plot=short&r=json");
+        } else {
+            //log to user that something went wrong if details not received
+            Toast.makeText(getActivity(), "Not ready to post yet. Please try again or you lost connection.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -61,8 +68,11 @@ public class ReviewAddFragment extends Fragment implements SearchSetHolder {
         //set the MovieTitle object to the the public object to then later save to the database
         if (movieDetails != null) {
             movieToPost = movieDetails.get(0);
+            //be able to post review
+            ready = true;
         } else {
             Toast.makeText(getActivity(), "Failed to get movie details", Toast.LENGTH_SHORT).show();
+            ready = false;
         }
     }
 }
