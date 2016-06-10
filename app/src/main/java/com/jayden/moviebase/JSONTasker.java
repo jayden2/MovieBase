@@ -1,7 +1,6 @@
 package com.jayden.moviebase;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -137,9 +136,10 @@ public class JSONTasker extends AsyncTask<String, String, ArrayList<MovieTitle>>
                 movies.add(movie);
                 //return success
                 return movies;
+
             }
 
-            //catch any errors from connection to API or errors from reader
+        //catch any errors from connection to API or errors from reader
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
