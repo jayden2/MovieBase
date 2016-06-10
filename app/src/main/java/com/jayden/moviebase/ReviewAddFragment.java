@@ -3,7 +3,6 @@ package com.jayden.moviebase;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,7 @@ public class ReviewAddFragment extends Fragment implements SearchSetHolder {
     public static MovieTitle movieToPost;
     public static EditText reviewText;
     public static RatingBar reviewScore;
-    private Boolean ready = false;
+    public static boolean ready = false;
 
     public ReviewAddFragment() {
         //Empty Constructor
@@ -53,13 +52,8 @@ public class ReviewAddFragment extends Fragment implements SearchSetHolder {
 
     private void getImdbResult(String imdbID) {
         //perform search query, if details have been received
-        if (ready == true) {
-            OMDBTasker tasker = new OMDBTasker(this, "IMDB");
-            tasker.execute("http://www.omdbapi.com/?i=" + imdbID + "&plot=short&r=json");
-        } else {
-            //log to user that something went wrong if details not received
-            Toast.makeText(getActivity(), "Not ready to post yet. Please try again or you lost connection.", Toast.LENGTH_SHORT).show();
-        }
+        OMDBTasker tasker = new OMDBTasker(this, "IMDB");
+        tasker.execute("http://www.omdbapi.com/?i=" + imdbID + "&plot=short&r=json");
     }
 
     @Override

@@ -1,11 +1,13 @@
 package com.jayden.moviebase;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -17,10 +19,17 @@ public class SearchAddListFragment extends ListFragment implements SearchSetHold
 
     private static SearchAddAdapter searchAddAdapter;
     private static ArrayList<MovieTitle> searchArray;
+    private static ProgressBar progressBar;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        //link to progress bar on search results, and colour it, make sure its invisible
+        progressBar = (ProgressBar) getActivity().findViewById(R.id.progressBar3);
+        progressBar.setVisibility(View.GONE);
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FF29C9BB"),
+                android.graphics.PorterDuff.Mode.MULTIPLY);
 
         //create empty array list to then later display results
         searchArray = new ArrayList<>();
@@ -43,6 +52,10 @@ public class SearchAddListFragment extends ListFragment implements SearchSetHold
     }
 
     public void newSearchResults(String search) {
+        //clear array adapater for new results
+        searchArray.clear();
+        //show progress bar
+        progressBar.setVisibility(View.VISIBLE);
         //perform search query
         OMDBTasker tasker = new OMDBTasker(this, "SEARCH");
         tasker.execute("http://www.omdbapi.com/?s=" + search + "&type=movie");
@@ -51,6 +64,8 @@ public class SearchAddListFragment extends ListFragment implements SearchSetHold
     @Override
     public void getSearchFinished(ArrayList<MovieTitle> searchList) {
         if (searchList != null) {
+            //hide progress bar
+            progressBar.setVisibility(View.GONE);
             //clear default empty array list
             searchArray.clear();
             //add searchlist to search array

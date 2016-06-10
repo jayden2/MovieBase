@@ -13,6 +13,14 @@
         android:layout_height="wrap_content"
         tools:layout="@layout/search_section" />
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar3"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        />
+
     <fragment
         android:id="@+id/mainActivityList"
         android:name="com.jayden.moviebase.SearchAddListFragment"

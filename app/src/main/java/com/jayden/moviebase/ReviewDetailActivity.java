@@ -102,23 +102,26 @@ public class ReviewDetailActivity extends AppCompatActivity implements MoviesSet
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_save) {
 
+            if (ReviewAddFragment.ready == true) {
+                //set review, score and user id to then post to database
+                ReviewAddFragment.movieToPost.setReview(ReviewAddFragment.reviewText.getText().toString());
+                //get rating and times it by 2 as starts are 0.5 to 5.0
+                String tempScore = String.valueOf(ReviewAddFragment.reviewScore.getRating() * 2);
+                //a rating has a . so we want to change that from fom
+                tempScore = tempScore.replace(".", "");
+                //set score and id
+                ReviewAddFragment.movieToPost.setScore(Long.parseLong(tempScore));
+                //TODO get real user id
+                ReviewAddFragment.movieToPost.setUserId(2);
 
-            //set review, score and user id to then post to database
-            ReviewAddFragment.movieToPost.setReview(ReviewAddFragment.reviewText.getText().toString());
-            //get rating and times it by 2 as starts are 0.5 to 5.0
-            String tempScore = String.valueOf(ReviewAddFragment.reviewScore.getRating() * 2);
-            //a rating has a . so we want to change that from fom
-            tempScore = tempScore.replace(".","");
-            //if the temp score start with 0 then remove that as well
-            Log.d("Score: ", tempScore);
+                postReview();
 
-            ReviewAddFragment.movieToPost.setScore(Long.parseLong(tempScore));
-            Log.d("Score Final: ", String.valueOf(ReviewAddFragment.movieToPost.getScore()));
-            ReviewAddFragment.movieToPost.setUserId(2);
+                return true;
 
-            postReview();
-
-            return true;
+            } else {
+                //log to user that something went wrong if details not received
+                Toast.makeText(getApplicationContext(), "Not ready to post yet. Please try again or you lost connection.", Toast.LENGTH_SHORT).show();
+            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -134,7 +137,11 @@ public class ReviewDetailActivity extends AppCompatActivity implements MoviesSet
         //get back list from POST movie, ive set success under the movie title object review so i can get back the data and make sure its been posted
         if  (movieList != null) {
             if (movieList.get(0).getReview() == "true") {
+
+                //if the review is successful log it to the user its been posted and close fragment
                 Toast.makeText(this, "Movie Review has been Posted", Toast.LENGTH_SHORT).show();
+                onNavigateUp();
+
             } else {
                 Toast.makeText(this, "Failed to post movie review", Toast.LENGTH_SHORT).show();
             }
