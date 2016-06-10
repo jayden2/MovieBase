@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    tools:context="com.jayden.moviebase.LoginActivity"
     android:layout_height="match_parent"
     android:weightSum="1">
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:id="@+id/imageView"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.41" />
+        android:layout_weight="0.41"
+        android:contentDescription="@string/moviebaselogo" />
 
     <TextView
         android:layout_width="162dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="email"
+        android:text="@string/email"
         android:layout_marginStart="25dp"
         android:id="@+id/textView" />
 
@@ -24,35 +28,42 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="50dp"
+        android:inputType="textEmailAddress"
         android:hint="@string/email_address_com"
-        android:layout_marginRight="50dp" />
+        android:layout_marginRight="50dp"
+        android:windowSoftInputMode="adjustResize|adjustPan" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="password"
-        android:layout_marginTop="20dp"
+        android:text="@string/passwords"
+        android:layout_marginTop="5dp"
         android:layout_marginStart="25dp"
-        android:id="@+id/textView2" />
+        android:id="@+id/textView2"
+        />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/password"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp" />
+        android:inputType="textPassword"
+        android:layout_marginRight="50dp"
+        android:imeOptions="actionGo"
+        android:windowSoftInputMode="adjustResize|adjustPan"/>
 
     <Button
         android:layout_width="188dp"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:id="@+id/button"
+        android:text="@string/login_btn"
+        android:id="@+id/login_button"
         android:background="@color/colorPrimary"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:textColor="@color/colorWhite"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:windowSoftInputMode="adjustResize|adjustPan" />
 
 
 </LinearLayout>

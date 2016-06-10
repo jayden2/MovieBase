@@ -22,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String MOVIE_YEAR_EXTRA = "com.jayden.moviebase.Year";
     public static final String MOVIE_RATING_EXTRA = "com.jayden.moviebase.Rating";
     public static final String MOVIE_COVER_EXTRA = "com.jayden.moviebase.Cover";
-    public static final String MOVIE_IMDB_EXTRA = "com.jayden.moviebase.I";
+    public static final String MOVIE_IMDB_EXTRA = "com.jayden.moviebase.Imdb";
+    public static final String MOVIE_TOKEN_EXTRA = "com.jayden.moviebase.Token";
     public static final String MOVIE_FRAGMENT_TO_LOAD_EXTRA = "com.jayden.moviebase.Fragment_To_Load";
 
     public enum ReviewFragmentToLaunch { VIEW, EDIT, CREATE, SEARCH }
