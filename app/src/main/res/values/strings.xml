@@ -33,5 +33,7 @@
     <string name="save_button_text">Save Review</string>
     <string name="action_save">Save Review</string>
     <string name="no_results_found">No results found!</string>
+    <string name="password">password</string>
+    <string name="email_address_com">email@address.com</string>
 
 </resources>
