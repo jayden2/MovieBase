@@ -76,7 +76,8 @@ public class UserTasker extends AsyncTask<String, String, User> {
                 result.append(line);
             }
             JSONObject userData = new JSONObject(result.toString());
-            Log.d("user data", String.valueOf(userData));
+
+            //if login entry sort user data
             if (typeURL == "LOGIN") {
 
                 //create user object
