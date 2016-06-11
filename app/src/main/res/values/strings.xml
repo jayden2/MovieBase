@@ -39,5 +39,6 @@
     <string name="email">email</string>
     <string name="passwords">password</string>
     <string name="login_btn">Login</string>
+    <string name="action_logout">Logout</string>
 
 </resources>

@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
+            finish();
             return true;
         }
 
@@ -80,6 +81,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_refresh) {
+            //reload whole fragment
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
             return true;
         }
 

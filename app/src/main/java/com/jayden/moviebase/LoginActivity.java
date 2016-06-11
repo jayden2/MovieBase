@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class LoginActivity extends AppCompatActivity implements LoginSetHolder {
 
     private static String url = "https://moviebaseapi.herokuapp.com/api/authenticate";
+    public static User userObj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class LoginActivity extends AppCompatActivity implements LoginSetHolder {
                     softkeyboard.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     //login
                     login(emailText.getText().toString(), passwordText.getText().toString());
+                    passwordText.setText("");
                 }
             });
         }
@@ -60,6 +62,7 @@ public class LoginActivity extends AppCompatActivity implements LoginSetHolder {
                         softkeyboard.hideSoftInputFromWindow(v.getWindowToken(), 0);
                         //login
                         login(emailText.getText().toString(), passwordText.getText().toString());
+                        passwordText.setText("");
                     }
                     return true;
                 }
@@ -79,6 +82,7 @@ public class LoginActivity extends AppCompatActivity implements LoginSetHolder {
             if (user.getEmail() != "failed") {
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 //set some details
+                userObj = user;
                 intent.putExtra(MainActivity.USER_USERNAME_EXTRA, user.getUsername());
                 intent.putExtra(MainActivity.USER_EMAIL_EXTRA, user.getEmail());
                 intent.putExtra(MainActivity.USER_ID_EXTRA, user.getUserId());

@@ -6,11 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.RatingBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,7 +21,7 @@ public class ReviewDetailActivity extends AppCompatActivity implements MoviesSet
     public static final String NEW_REVIEW_CREATE_EXTRA = "Create Review";
     public static Context mContext;
     private static FragmentManager fragmentManager;
-    private static String url = "https://moviebaseapi.herokuapp.com/api/movies/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxMDBAZW1haWwuY29tIiwicGFzc3dvcmQiOiJhYmMxMjMiLCJpYXQiOjE0NjUzNTc4MTAsImV4cCI6MTQ2NTk2MjYxMH0.WC1vfx_6I7W2W92HsttoyQC4X1NE5AAvE1P3bURGBM8";
+    private static String url = "https://moviebaseapi.herokuapp.com/api/movies/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,8 +108,8 @@ public class ReviewDetailActivity extends AppCompatActivity implements MoviesSet
                 tempScore = tempScore.replace(".", "");
                 //set score and id
                 ReviewAddFragment.movieToPost.setScore(Long.parseLong(tempScore));
-                //TODO get real user id
-                ReviewAddFragment.movieToPost.setUserId(2);
+                //set user id
+                ReviewAddFragment.movieToPost.setUserId(LoginActivity.userObj.getUserId());
 
                 postReview();
 
@@ -129,7 +126,7 @@ public class ReviewDetailActivity extends AppCompatActivity implements MoviesSet
     private void postReview() {
         //perform search query
         JSONTasker tasker = new JSONTasker(this, "POST_REVIEW", ReviewAddFragment.movieToPost);
-        tasker.execute(url);
+        tasker.execute(url + "?token=" + LoginActivity.userObj.getToken());
     }
 
     @Override

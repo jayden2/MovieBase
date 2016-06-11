@@ -18,7 +18,7 @@ public class MainActivityListFragment extends ListFragment implements MoviesSetH
     private static MovieAdapter movieAdapter;
     private static ArrayList<MovieTitle> movieList;
     private ProgressBar progressBar;
-    private static String url = "https://moviebaseapi.herokuapp.com/api/movies/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxMDBAZW1haWwuY29tIiwicGFzc3dvcmQiOiJhYmMxMjMiLCJpYXQiOjE0NjUzNTc4MTAsImV4cCI6MTQ2NTk2MjYxMH0.WC1vfx_6I7W2W92HsttoyQC4X1NE5AAvE1P3bURGBM8";
+    private static String url = "https://moviebaseapi.herokuapp.com/api/movies/";
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class MainActivityListFragment extends ListFragment implements MoviesSetH
 
         //get all movies from API
         JSONTasker tasker = new JSONTasker(this, "GET_MOVIES", null);
-        tasker.execute(url);
+        tasker.execute(url + "?token=" + LoginActivity.userObj.getToken());
 
         //set divider between fragments color and height
         getListView().setDivider(ContextCompat.getDrawable(getActivity(), android.R.color.darker_gray));
