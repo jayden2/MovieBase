@@ -23,15 +23,17 @@ public class UserTasker extends AsyncTask<String, String, User> {
 
     private LoginSetHolder loginAsyncListener;
     private String typeURL;
+    private String username;
     private String email;
     private String password;
     private static DataOutputStream outputStream;
     private static String charset = "UTF-8";
     private static StringBuilder paramsBuilder;
 
-    public UserTasker(LoginSetHolder loginAsyncListener, String typeURL, String email, String password){
+    public UserTasker(LoginSetHolder loginAsyncListener, String typeURL, String username, String email, String password){
         this.loginAsyncListener = loginAsyncListener;
         this.typeURL = typeURL;
+        this.username = username;
         this.email = email;
         this.password = password;
     }
@@ -59,7 +61,7 @@ public class UserTasker extends AsyncTask<String, String, User> {
             connection.connect();
 
             //build string and then send it it through POST and close
-            paramsBuilder = buildPostReviewData();
+            paramsBuilder = buildPostUserData();
             String paramsString = paramsBuilder.toString();
             outputStream = new DataOutputStream(connection.getOutputStream());
             outputStream.writeBytes(paramsString);
@@ -85,15 +87,32 @@ public class UserTasker extends AsyncTask<String, String, User> {
 
                 //if all authenticated get user data and token
                 if (userData.getBoolean("success") == true) {
-                    Log.d("user data", "success");
                     user.setUserId(userData.getLong("id"));
-                    Log.d("user data", String.valueOf(userData.getLong("id")));
                     user.setEmail(userData.getString("email"));
-                    Log.d("user data", userData.getString("email"));
                     user.setUsername(userData.getString("username"));
                     user.setToken(userData.getString("token"));
                 } else {
                     //if failed return that
+                    user.setEmail("failed");
+                    user.setUsername(userData.getString("message"));
+                }
+
+                return user;
+            }
+
+            //if login entry sort user data
+            else if (typeURL == "SIGNUP") {
+
+                //create user object
+                User user = new User();
+
+                //if all authenticated get user data and token
+                if (userData.getBoolean("success") == true) {
+                    Log.d("user", "user created!");
+                    user.setUsername(userData.getString("message"));
+                } else {
+                    //if failed return that
+                    Log.d("user", "user not created!");
                     user.setEmail("failed");
                     user.setUsername(userData.getString("message"));
                 }
@@ -129,14 +148,22 @@ public class UserTasker extends AsyncTask<String, String, User> {
         loginAsyncListener.getLoginFinished(result);
     }
 
-    private StringBuilder buildPostReviewData(){
+    private StringBuilder buildPostUserData(){
 
         StringBuilder stringBuilder = new StringBuilder();
 
+        //build string with parameters and values
         try {
-            //build string with paramaters and vablues
-            stringBuilder.append("email=" + URLEncoder.encode(email, charset));
-            stringBuilder.append("&password=" + URLEncoder.encode(password, charset));
+            if (typeURL == "LOGIN") {
+                //login requires email and password
+                stringBuilder.append("email=" + URLEncoder.encode(email, charset));
+                stringBuilder.append("&password=" + URLEncoder.encode(password, charset));
+            } else if (typeURL == "SIGNUP") {
+                //signup requires email, username and password
+                stringBuilder.append("username=" + URLEncoder.encode(username, charset));
+                stringBuilder.append("&email=" + URLEncoder.encode(email, charset));
+                stringBuilder.append("&password=" + URLEncoder.encode(password, charset));
+            }
 
         } catch (UnsupportedEncodingException e) {
 

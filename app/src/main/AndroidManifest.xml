@@ -29,6 +29,9 @@
             android:name=".ReviewDetailActivity"
             android:label="@string/view_fragment_title"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".CreateUserActvity"
+            android:parentActivityName=".LoginActivity" />
     </application>
 
 </manifest>

@@ -40,5 +40,9 @@
     <string name="passwords">password</string>
     <string name="login_btn">Login</string>
     <string name="action_logout">Logout</string>
+    <string name="username">username</string>
+    <string name="create_user">Create User</string>
+    <string name="cancel_user">cancel user</string>
+    <string name="create_user_btn">Create User</string>
 
 </resources>

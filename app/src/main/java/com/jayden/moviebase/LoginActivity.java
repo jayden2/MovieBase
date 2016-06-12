@@ -32,6 +32,7 @@ public class LoginActivity extends AppCompatActivity implements LoginSetHolder {
 
         //get email, password fields, soft keyboard and login button
         Button loginButton = (Button) findViewById(R.id.login_button);
+        Button createButton = (Button) findViewById(R.id.create_button);
         final EditText emailText = (EditText) findViewById(R.id.email_text);
         final EditText passwordText = (EditText) findViewById(R.id.password_text);
         final InputMethodManager softkeyboard = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -46,6 +47,21 @@ public class LoginActivity extends AppCompatActivity implements LoginSetHolder {
                     //login
                     login(emailText.getText().toString(), passwordText.getText().toString());
                     passwordText.setText("");
+                }
+            });
+        }
+
+        if (createButton != null) {
+            createButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    //when create user button is pressed
+                    emailText.clearFocus();
+                    passwordText.clearFocus();
+                    softkeyboard.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    //create intent to go to create user activity
+                    Intent intent = new Intent(LoginActivity.this, CreateUserActvity.class);
+                    //go to activity
+                    startActivity(intent);
                 }
             });
         }
@@ -71,7 +87,7 @@ public class LoginActivity extends AppCompatActivity implements LoginSetHolder {
     }
 
     private void login(String email, String password) {
-        UserTasker tasker = new UserTasker(this, "LOGIN", email, password);
+        UserTasker tasker = new UserTasker(this, "LOGIN", "", email, password);
         tasker.execute(url);
     }
 
