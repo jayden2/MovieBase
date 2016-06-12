@@ -3,6 +3,7 @@ package com.jayden.moviebase;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -49,24 +50,33 @@ public class UserTasker extends AsyncTask<String, String, User> {
             Log.d("type url", typeURL);
             //basic URL to API
             URL url = new URL(params[0]);
-            //set up connection to post information to authenticate user
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            connection.setRequestProperty("Accept-Charset", charset);
-            connection.setDoInput(true);
-            connection.setDoOutput(true);
-            connection.setConnectTimeout(15000);
-            connection.setReadTimeout(10000);
-            connection.connect();
+            if (typeURL != "VERIFY") {
+                //set up connection to post information to authenticate user
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("POST");
+                connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                connection.setRequestProperty("Accept-Charset", charset);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+                connection.setConnectTimeout(15000);
+                connection.setReadTimeout(10000);
+                connection.connect();
 
-            //build string and then send it it through POST and close
-            paramsBuilder = buildPostUserData();
-            String paramsString = paramsBuilder.toString();
-            outputStream = new DataOutputStream(connection.getOutputStream());
-            outputStream.writeBytes(paramsString);
-            outputStream.flush();
-            outputStream.close();
+                //build string and then send it it through POST and close
+                paramsBuilder = buildPostUserData();
+                String paramsString = paramsBuilder.toString();
+                outputStream = new DataOutputStream(connection.getOutputStream());
+                outputStream.writeBytes(paramsString);
+                outputStream.flush();
+                outputStream.close();
+            } else {
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setConnectTimeout(15000);
+                connection.setReadTimeout(10000);
+                connection.connect();
+            }
+
 
             //get data from connection and set up reader
             InputStream stream = connection.getInputStream();
@@ -77,14 +87,13 @@ public class UserTasker extends AsyncTask<String, String, User> {
             while((line = reader.readLine()) !=null) {
                 result.append(line);
             }
-            JSONObject userData = new JSONObject(result.toString());
+            //create user object
+            User user = new User();
 
             //if login entry sort user data
             if (typeURL == "LOGIN") {
-
-                //create user object
-                User user = new User();
-
+                //sort received JSON data
+                JSONObject userData = new JSONObject(result.toString());
                 //if all authenticated get user data and token
                 if (userData.getBoolean("success") == true) {
                     user.setUserId(userData.getLong("id"));
@@ -102,21 +111,30 @@ public class UserTasker extends AsyncTask<String, String, User> {
 
             //if login entry sort user data
             else if (typeURL == "SIGNUP") {
-
-                //create user object
-                User user = new User();
-
+                //sort received JSON data
+                JSONObject userData = new JSONObject(result.toString());
                 //if all authenticated get user data and token
                 if (userData.getBoolean("success") == true) {
-                    Log.d("user", "user created!");
                     user.setUsername(userData.getString("message"));
                 } else {
-                    //if failed return that
-                    Log.d("user", "user not created!");
-                    user.setEmail("failed");
-                    user.setUsername(userData.getString("message"));
+                    user.setUsername("failed_create");
+                    user.setEmail(userData.getString("message"));
                 }
 
+                return user;
+            }
+
+            else if (typeURL == "VERIFY") {
+                //sort received JSON data
+                JSONArray JSONdata = new JSONArray(result.toString());
+                JSONObject userData = JSONdata.getJSONObject(0);
+                if (userData.getInt("user_count") == 0) {
+                    user.setUsername("verified");
+                    Log.d("user", "user doesnt exist");
+                } else {
+                    Log.d("user", "user exits");
+                    user.setUsername("email_exists");
+                }
                 return user;
             }
         //catch any errors from connection to API or errors from reader

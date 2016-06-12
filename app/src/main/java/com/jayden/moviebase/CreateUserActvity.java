@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -78,10 +79,13 @@ public class CreateUserActvity extends AppCompatActivity implements LoginSetHold
         }
 
         //check if email exists
-//        UserTasker verifyTasker = new UserTasker(this, "CHECK_EMAIL", username.getText().toString(), email.getText().toString(), password.getText().toString());
-//        verifyTasker.execute(urlVerify);
+        UserTasker verifyTasker = new UserTasker(this, "VERIFY", "", email.getText().toString(), "");
+        verifyTasker.execute(urlVerify + email.getText().toString() + "/check/");
 
-        //check if email exists
+    }
+
+    private void createUser() {
+        //create user
         UserTasker createTasker = new UserTasker(this, "SIGNUP", username.getText().toString(), email.getText().toString(), password.getText().toString());
         createTasker.execute(urlCreate);
     }
@@ -93,10 +97,14 @@ public class CreateUserActvity extends AppCompatActivity implements LoginSetHold
             if (user.getUsername() == "email_exists") {
                 Toast.makeText(this, "Email already exists, please change your email and try again", Toast.LENGTH_SHORT).show();
                 return;
+            } else if (user.getUsername() == "verified") {
+                //if email is ok create user!
+                Log.d("VERIFIED", "CREATING USER");
+                createUser();
             }
             //failed to create user
             if (user.getUsername() == "failed_create") {
-                Toast.makeText(this, "Failed to create user, try again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, user.getEmail(), Toast.LENGTH_SHORT).show();
                 return;
             }
             //if user created tell user and then go back to login
